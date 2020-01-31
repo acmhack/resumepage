@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Table, Input, Button, Icon, Switch, Radio, Form, Divider } from 'antd';
 import Highlighter from 'react-highlight-words';
-//import './security.js';
+import './security.js';
 
 var data = [];
 
@@ -29,7 +29,7 @@ export default class UserComponent extends Component {
   }
 
   componentDidMount() {
-	axios.get('http://localhost:5000/users/')
+	axios.get('http://dashboard.pickhacks.io:5000/users/')
 	  .then(response => {
 		this.setState({ users: response.data });
 
