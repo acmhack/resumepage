@@ -1,3 +1,12 @@
+# 2020 PickHacks Attendee Resume Database
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
