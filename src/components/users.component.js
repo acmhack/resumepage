@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Table, Input, Button, Icon, Switch, Radio, Form, Divider } from 'antd';
 import Highlighter from 'react-highlight-words';
-import './security.js';
+//import './security.js';
 
 var data = [];
 
@@ -15,13 +15,13 @@ function viewResume(resume) {
   win.document.write('<iframe src="' + pdfAsDataUri + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
 }
 
-
 const expandedRowRender = record => <p>{record.description}</p>;
 const title = () => 'List of Participants';
 const showHeader = true;
 const footer = () => 'Here is footer';
 const scroll = { y: 240 };
 const pagination = { position: 'bottom' };
+
 
 export default class UserComponent extends Component {
   constructor(props) {
@@ -30,16 +30,15 @@ export default class UserComponent extends Component {
   }
 
   componentDidMount() {
-	axios.get('http://dashboard.pickhacks.io:5000/users/')
+	axios.get('https://resumebackend.pickhacks.io/users')
 	  .then(response => {
 		this.setState({ users: response.data });
-
+		data = response.data;
 	  })
 	  .catch((error) => {
 		console.log(error);
 	  })
   }
-
   state = {
 	bordered: false,
 	loading: false,
@@ -52,10 +51,66 @@ export default class UserComponent extends Component {
 	//rowSelection: {},
 	scroll: undefined,
 	hasData: true,
+	dataSource: data,
 	tableLayout: undefined,
 	searchText: '',
 	searchedColumn: '',
   };
+
+  getColumnSearchProp = dataIndex => ({
+	filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+	  <div style={{ padding: 8 }}>
+		<Input
+		  ref={node => {
+			this.searchInput = node;
+		  }}
+		  placeholder={`Search ${dataIndex}`}
+		  value={selectedKeys[0]}
+		  onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+		  onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+		  style={{ width: 188, marginBottom: 8, display: 'block' }}
+		/>
+		<Button
+		  type="primary"
+		  onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+		  icon="search"
+		  size="small"
+		  style={{ width: 90, marginRight: 8 }}
+		>
+		  Search
+        </Button>
+		<Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+		  Reset
+        </Button>
+	  </div>
+	),
+	filterIcon: filtered => (
+	  <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+	),
+	onFilter: (value, record) =>
+	  record[dataIndex]
+		? record[dataIndex]
+		  .toString()
+		  .toLowerCase()
+		  .includes(value.toLowerCase())
+		: false,
+	onFilterDropdownVisibleChange: visible => {
+	  if (visible) {
+		setTimeout(() => this.searchInput.select());
+	  }
+	},
+	render: text =>
+	  this.state.searchedColumn === dataIndex ? (
+		<Highlighter
+		  highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+		  searchWords={[this.state.searchText]}
+		  autoEscape
+		  textToHighlight={text.toString()}
+		/>
+	  ) : (
+		  text
+		),
+  });
 
   getColumnSearchProps = dataIndex => ({
 	filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -88,10 +143,10 @@ export default class UserComponent extends Component {
 	  <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
 	),
 	onFilter: (value, record) =>
-	  record[dataIndex]
-	  ? record[dataIndex]
-		.toString()
-		.toLowerCase()
+	  record['profile'][dataIndex]
+		? record['profile'][dataIndex]
+		  .toString()
+		  .toLowerCase()
 		  .includes(value.toLowerCase())
 		: false,
 	onFilterDropdownVisibleChange: visible => {
@@ -178,11 +233,11 @@ export default class UserComponent extends Component {
   render() {
 
 	const { state } = this;
-
 	const columns = [{
+
 	  title: 'Name',
 	  dataIndex: 'profile.name',
-	  key: 'name',
+	  rowKey: "name",
 	  ...this.getColumnSearchProps('name'),
 	  sorter: (a, b) => a.profile.name.localeCompare(b.profile.name),
 	  render: text => <p>{text}</p>,
@@ -190,7 +245,7 @@ export default class UserComponent extends Component {
 	{
 	  title: 'School',
 	  dataIndex: 'profile.school',
-	  key: 'school',
+	  rowKey: 'school',
 	  ...this.getColumnSearchProps('school'),
 	  sorter: (a, b) => a.profile.school.localeCompare(b.profile.school),
 	  render: text => <p>{text}</p>,
@@ -198,15 +253,15 @@ export default class UserComponent extends Component {
 	{
 	  title: 'Email',
 	  dataIndex: 'email',
-	  key: 'email',
-	  ...this.getColumnSearchProps('email'),
+	  rowKey: 'email',
+	  ...this.getColumnSearchProp('email'),
 	  sorter: (a, b) => a.email.localeCompare(b.email),
 	  render: text => <p>{text}</p>,
 	},
 	{
 	  title: 'Major',
 	  dataIndex: 'profile.major',
-	  key: 'major',
+	  rowKey: 'major',
 	  ...this.getColumnSearchProps('major'),
 	  sorter: (a, b) => a.profile.major.localeCompare(b.profile.major),
 	  render: text => <p>{text}</p>,
@@ -214,7 +269,7 @@ export default class UserComponent extends Component {
 	{
 	  title: 'Graduation Year',
 	  dataIndex: 'profile.graduationYear',
-	  key: 'graduationYear',
+	  rowKey: 'graduationYear',
 	  defaultSortOrder: 'descend',
 	  ...this.getColumnSearchProps('graduationYear'),
 	  sorter: (a, b) => a.profile.graduationYear - b.profile.graduationYear,
@@ -222,12 +277,12 @@ export default class UserComponent extends Component {
 	},
 	{
 	  title: 'Action',
-	  key: 'action',
+	  rowKey: 'action',
 	  render: (text, record) => (
 		<span>
-		  <a type="submit" onClick={() => { viewResume(record.resume) }}>View</a>
-		  <Divider type="vertical" />
-		  <a>Download</a>
+		  <a type="submit" onClick={() => { viewResume(record.resume) }} style={{ visibility: (record.resume.length > 0 ? "visible" : "hidden") }} >View</a>
+		  <Divider type="vertical" style={{ visibility: (record.resume.length > 0 ? "visible" : "hidden") }} />
+		  <a href={"data:application/pdf;base64," + record.resume} style={{ visibility: (record.resume.length > 0 ? "visible" : "hidden") }} download> Download </a>
 		</span>
 	  ),
 	},];
@@ -243,6 +298,7 @@ export default class UserComponent extends Component {
 		  {...this.state}
 		  columns={columns.map(item => ({ ...item, ellipsis: columns.ellipsis }))}
 		  dataSource={this.state.users}
+		  rowKey={record => record._id}
 		/>
 	  </div>
 	);
