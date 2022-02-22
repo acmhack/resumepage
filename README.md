@@ -1,4 +1,4 @@
-# 2020 PickHacks Attendee Resume Database
+# PickHacks Attendee Resume Database
 
 
 
