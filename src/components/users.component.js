@@ -1,9 +1,8 @@
 ﻿import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Table, Input, Button, Icon, Switch, Radio, Form, Divider } from 'antd';
+import { Table, Input, Button, Switch, Radio, Form, Divider } from 'antd';
 import Highlighter from 'react-highlight-words';
 //import './security.js';
 
@@ -84,9 +83,9 @@ export default class UserComponent extends Component {
         </Button>
 	  </div>
 	),
-	filterIcon: filtered => (
-	  <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
-	),
+	// filterIcon: filtered => (
+	//   <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+	// ),
 	onFilter: (value, record) =>
 	  record[dataIndex]
 		? record[dataIndex]
@@ -139,9 +138,9 @@ export default class UserComponent extends Component {
         </Button>
 	  </div>
 	),
-	filterIcon: filtered => (
-	  <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
-	),
+	// filterIcon: filtered => (
+	//   <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />
+	// ),
 	onFilter: (value, record) =>
 	  record['profile'][dataIndex]
 		? record['profile'][dataIndex]
