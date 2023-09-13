@@ -4,19 +4,15 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Card, CardContent, CardActions, Button } from '@mui/material'
 import UserCard from '../components/usercard'
+import { CardProps } from '../components/usercard'
 import { JSX, useEffect } from 'react'
-
 
 const testArray: any = [];
 
-const addCard = ({name, projectlink, resumelink}: any) => {
-  for (let index = 0; index < 5; index++) {
-    testArray.push()
-  }
+const addCard = ({name, projectlink, resumelink}: CardProps) => {
 }
 
 const Home: NextPage = () => {
-
 
   return (
     <div style={{height: '100%'}}>

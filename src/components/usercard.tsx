@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardActions, Button } from '@mui/material'
 
-interface CardProps {
+export interface CardProps {
   name: string;
   resumelink: string;
   projectlink: string;
