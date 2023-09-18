@@ -16,28 +16,7 @@ const Home: NextPage = () => {
 
   return (
     <div style={{height: '100%'}}>
-      <h1>PICKHACKS RESUME PAGE!! :)</h1>
-      <div id='top' style={{display: 'flex', gap: 40, flexFlow: 'wrap', height: '80vh', width: '90vw', padding: 40, overflow: 'scroll', alignContent: 'flex-start', borderStyle: 'solid'}}>
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
-        <UserCard name='gamer' projectlink='null' resumelink='null' />
+      <div className={styles.cardContainer}>
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
