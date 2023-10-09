@@ -23,6 +23,16 @@ const testArray: CardProps[] = [
     name: 'zaTest',
     projectlink: 'coolio',
     resumelink: 'muchopoggers'
+  },
+  {
+    name: 'baby',
+    projectlink: 'dont matter',
+    resumelink: 'omegapoggers'
+  },
+  {
+    name: 'coolbaby',
+    projectlink: 'do matter',
+    resumelink: 'omega2poggers'
   }
 ];
 
@@ -41,6 +51,7 @@ const Home: NextPage = () => {
   return (
     <div style={{height: '100%'}}>
       <div className={styles.cardContainer}>
+        {/*
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
@@ -51,6 +62,7 @@ const Home: NextPage = () => {
         {displayCards(testArray)}
 
         <UserCard name='fortnite' projectlink={searchFilter} resumelink='gaming' />
+        */}
         {testArray.filter(card => card.name.includes(searchFilter)).map(filteredCard => (
           <UserCard name={filteredCard.name} projectlink={filteredCard.projectlink} resumelink={filteredCard.resumelink}></UserCard>
         ))}
