@@ -7,9 +7,31 @@ import UserCard from '../components/usercard'
 import { CardProps } from '../components/usercard'
 import { JSX, useEffect } from 'react'
 
-const testArray: any = [];
+const testArray: CardProps[] = [
+  {
+    name: 'test',
+    projectlink: 'test',
+    resumelink: 'test'
+  },
+  {
+    name: 'anotherTest',
+    projectlink: 'cool',
+    resumelink: 'muypoggers'
+  },
+  {
+    name: 'zaTest',
+    projectlink: 'coolio',
+    resumelink: 'muchopoggers'
+  }
+];
 
 const addCard = ({name, projectlink, resumelink}: CardProps) => {
+}
+
+const displayCards = (cards : CardProps[]) => {
+  return  <>
+            {cards.map((card) => <UserCard name={card.name} projectlink={card.projectlink} resumelink={card.resumelink}></UserCard>)}
+          </>;
 }
 
 const Home: NextPage = () => {
@@ -24,6 +46,7 @@ const Home: NextPage = () => {
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
+        {displayCards(testArray)}
       </div>
     </div>
   )
