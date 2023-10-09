@@ -5,7 +5,8 @@ import styles from '../styles/Home.module.css'
 import { Card, CardContent, CardActions, Button } from '@mui/material'
 import UserCard from '../components/usercard'
 import { CardProps } from '../components/usercard'
-import { JSX, useEffect } from 'react'
+import { JSX, useEffect, useContext } from 'react'
+import { CardSearchContext } from './Contexts'
 
 const testArray: CardProps[] = [
   {
@@ -35,6 +36,7 @@ const displayCards = (cards : CardProps[]) => {
 }
 
 const Home: NextPage = () => {
+  const searchFilter = useContext(CardSearchContext);
 
   return (
     <div style={{height: '100%'}}>
@@ -47,6 +49,11 @@ const Home: NextPage = () => {
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         <UserCard name='gamer' projectlink='null' resumelink='null' />
         {displayCards(testArray)}
+
+        <UserCard name='fortnite' projectlink={searchFilter} resumelink='gaming' />
+        {testArray.filter(card => card.name.includes(searchFilter)).map(filteredCard => (
+          <UserCard name={filteredCard.name} projectlink={filteredCard.projectlink} resumelink={filteredCard.resumelink}></UserCard>
+        ))}
       </div>
     </div>
   )
