@@ -6,11 +6,11 @@ import { useState } from 'react';
 import { CardSearchContext } from '../pages/Contexts';
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
-    const [sort, setSort] = useState('Featured');
-    const [state, setState] = useState('SearchBox');
+    const [sort, setSort] = useState('');
+    const [search, setSearch] = useState('');
 
     return (
-        <CardSearchContext.Provider value={state}>
+        <CardSearchContext.Provider value={{sort: sort, search: search, gradyear: [2023, 2024, 2025, 2026], category: ['overall', 'beginner', 'solo']}}>
             <div className={styles.container}>
                 <div className={styles.sidebar}>
                     <div className={styles.search}>
@@ -21,7 +21,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                                 zIndex: 99
                             }}
                         />
-                        <input type="text" className={styles.searchbar} placeholder="Search..." value={state} onChange={(e) => setState(e.currentTarget.value)}/>
+                        <input type="text" className={styles.searchbar} placeholder="Search..." value={search} onChange={(e) => setSearch(e.currentTarget.value)}/>
                         {/*<TextField id="search" type="search" label="Search..." variant="outlined" onKeyUp={setState(this.value)}/>*/}
                     </div>
                     {/* TODO: Clear filters */}
@@ -52,9 +52,9 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                                 label="Sort By"
                                 onChange={(e) => setSort(e.target.value)}
                             >
-                                <MenuItem value={'Featured'}>Featured</MenuItem>
-                                <MenuItem value={'Ascending'}>Ascending</MenuItem>
-                                <MenuItem value={'Descending'}>Descending</MenuItem>
+                                <MenuItem value={'feat'}>Featured</MenuItem>
+                                <MenuItem value={'asc'}>Ascending</MenuItem>
+                                <MenuItem value={'desc'}>Descending</MenuItem>
                             </Select>
                         </FormControl>
                     </div>
