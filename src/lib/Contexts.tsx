@@ -4,6 +4,6 @@ export const CardSearchContext = createContext({
     sort: '',
     search: '',
     view: '',
-    gradyear: [0],
+    gradyear: [''],
     category: ['']
 });

@@ -9,10 +9,30 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [sort, setSort] = useState('');
     const [search, setSearch] = useState('');
     const [view, setView] = useState<'people' | 'projects'>('people');
+    const [gradyear, setGradYear] = useState<string[]>([]);
+    const [category, setCategory] = useState<string[]>([]);
+
+    const handleGradChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const index = gradyear.indexOf(e.target.value);
+        if(index === -1) {
+            setGradYear([...gradyear, e.target.value]);
+        } else {
+            setGradYear(gradyear.filter((year) => year !== e.target.value))
+        }
+    }
+
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const index = category.indexOf(e.target.value);
+        if(index === -1) {
+            setCategory([...category, e.target.value]);
+        } else {
+            setCategory(category.filter((category) => category !== e.target.value));
+        }
+    }
 
     return (
         <CardSearchContext.Provider
-            value={{ sort: sort, search: search, view: view, gradyear: [2023, 2024, 2025, 2026], category: ['overall', 'beginner', 'solo'] }}
+            value={{ sort: sort, search: search, view: view, gradyear: gradyear, category: category }}
         >
             <div className={styles.container}>
                 <div className={styles.sidebar}>
@@ -48,11 +68,11 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                         <>
                             <div className={styles.filter}>
                                 <p className={styles.title}>Grad Year</p>
-                                <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="2023" />
-                                    <FormControlLabel control={<Checkbox />} label="2024" />
-                                    <FormControlLabel control={<Checkbox />} label="2025" />
-                                    <FormControlLabel control={<Checkbox />} label="2026" />
+                                <FormGroup id='gradyear' >
+                                    <FormControlLabel control={<Checkbox value="2023" onChange={(e) => handleGradChange(e)}/>} label="2023" />
+                                    <FormControlLabel control={<Checkbox value="2024" onChange={(e) => handleGradChange(e)}/>} label="2024" />
+                                    <FormControlLabel control={<Checkbox value="2025" onChange={(e) => handleGradChange(e)}/>} label="2025" />
+                                    <FormControlLabel control={<Checkbox value="2026" onChange={(e) => handleGradChange(e)}/>} label="2026" />
                                 </FormGroup>
                             </div>
                             <div className={styles.line}></div>
@@ -60,10 +80,10 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                     )}
                     <div className={styles.filter}>
                         <p className={styles.title}>Categories</p>
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Overall" />
-                            <FormControlLabel control={<Checkbox />} label="Beginner" />
-                            <FormControlLabel control={<Checkbox />} label="Solo" />
+                        <FormGroup id='category'>
+                            <FormControlLabel control={<Checkbox value="overall" onChange={(e) => handleCategoryChange(e)}/>} label="Overall" />
+                            <FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)}/>} label="Beginner" />
+                            <FormControlLabel control={<Checkbox value="solo" onChange={(e) => handleCategoryChange(e)}/>} label="Solo" />
                         </FormGroup>
                     </div>
                     <div className={styles.line}></div>
