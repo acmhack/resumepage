@@ -113,7 +113,7 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
         const category = searchFilter.category;
         const sort = searchFilter.sort;
         projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search.toLowerCase()));
-        if (category.length != 0 && category[0] != '') {
+        if (category.length != 0) {
             projectCards = projectCards.filter((card) => category.includes(card.category));
         }
         switch (sort) {
