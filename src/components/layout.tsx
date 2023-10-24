@@ -1,16 +1,19 @@
 import styles from '../styles/components/Layout.module.css';
 import * as React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField } from '@mui/material';
+import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField, Button } from '@mui/material';
 import { useState } from 'react';
-import { CardSearchContext } from '../pages/Contexts';
+import { CardSearchContext } from '../lib/Contexts';
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [sort, setSort] = useState('');
     const [search, setSearch] = useState('');
+    const [view, setView] = useState<'people' | 'projects'>('people');
 
     return (
-        <CardSearchContext.Provider value={{sort: sort, search: search, gradyear: [2023, 2024, 2025, 2026], category: ['overall', 'beginner', 'solo']}}>
+        <CardSearchContext.Provider
+            value={{ sort: sort, search: search, view: view, gradyear: [2023, 2024, 2025, 2026], category: ['overall', 'beginner', 'solo'] }}
+        >
             <div className={styles.container}>
                 <div className={styles.sidebar}>
                     <div className={styles.search}>
@@ -21,20 +24,40 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                                 zIndex: 99
                             }}
                         />
-                        <input type="text" className={styles.searchbar} placeholder="Search..." value={search} onChange={(e) => setSearch(e.currentTarget.value)}/>
+                        <input
+                            type="text"
+                            className={styles.searchbar}
+                            placeholder="Search..."
+                            value={search}
+                            onChange={(e) => setSearch(e.currentTarget.value)}
+                        />
                         {/*<TextField id="search" type="search" label="Search..." variant="outlined" onKeyUp={setState(this.value)}/>*/}
                     </div>
-                    {/* TODO: Clear filters */}
-                    <div className={styles.filter}>
-                        <p className={styles.title}>Grad Year</p>
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="2023" />
-                            <FormControlLabel control={<Checkbox />} label="2024" />
-                            <FormControlLabel control={<Checkbox />} label="2025" />
-                            <FormControlLabel control={<Checkbox />} label="2026" />
-                        </FormGroup>
-                    </div>
-                    <div className={styles.line}></div>
+                    {view === 'people' && (
+                        <Button variant="contained" fullWidth onClick={() => setView('projects')}>
+                            View as Projects
+                        </Button>
+                    )}
+                    {view === 'projects' && (
+                        <Button variant="contained" fullWidth onClick={() => setView('people')}>
+                            View as People
+                        </Button>
+                    )}
+                    {/* TODO: Clear filters button */}
+                    {view === 'people' && (
+                        <>
+                            <div className={styles.filter}>
+                                <p className={styles.title}>Grad Year</p>
+                                <FormGroup>
+                                    <FormControlLabel control={<Checkbox />} label="2023" />
+                                    <FormControlLabel control={<Checkbox />} label="2024" />
+                                    <FormControlLabel control={<Checkbox />} label="2025" />
+                                    <FormControlLabel control={<Checkbox />} label="2026" />
+                                </FormGroup>
+                            </div>
+                            <div className={styles.line}></div>
+                        </>
+                    )}
                     <div className={styles.filter}>
                         <p className={styles.title}>Categories</p>
                         <FormGroup>
@@ -47,11 +70,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                     <div className={styles.filter}>
                         <FormControl fullWidth>
                             <InputLabel>Sort By</InputLabel>
-                            <Select
-                                value={sort}
-                                label="Sort By"
-                                onChange={(e) => setSort(e.target.value)}
-                            >
+                            <Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
                                 <MenuItem value={'feat'}>Featured</MenuItem>
                                 <MenuItem value={'asc'}>Ascending</MenuItem>
                                 <MenuItem value={'desc'}>Descending</MenuItem>
