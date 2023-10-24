@@ -90,11 +90,11 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
         const category = searchFilter.category;
         const sort = searchFilter.sort;
         userCards = userCards.filter((card) => card.name.toLowerCase().includes(search.toLowerCase()));
-        if (gradyear.length != 0 && gradyear[0] != 0) {
+        if (gradyear.length != 0) {
             //currently [0] is default, WIP remove gradyear[0] check by setting [] as default
             userCards = userCards.filter((card) => gradyear.includes(card.gradyear.toString()));
         }
-        if (category.length != 0 && category[0] != '') {
+        if (category.length != 0) {
             userCards = userCards.filter((card) => category.includes(card.category));
         }
         switch (sort) {
