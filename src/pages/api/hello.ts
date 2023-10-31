@@ -14,43 +14,49 @@ const client = new MongoClient(uri, {
   }
 });
 
-client.connect(uri, function(err:any, db:any) {
-  if(err) {
-    console.log(err);
-  }else{
-    console.log("MongoDB Connection Success")
-  }
-  var dbo = db.db("resume");
-  dbo.createCollection("customers", function(err:any, res:any) {
-    if (err) throw err;
-    console.log("Collection created!");
-    db.close();
-  });
-})
-
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
-
-
-
+//data
+//with fields :)
 type Data = {
-  name: string
-}
+  name: string;
+  projectName: string;
+  projectLink: string;
+  categoryWon: string;
+  resumeLink: string;
+  gradYear: number;
+  category: string;
+  featured: boolean;
+};
 
-export default function handler(
+
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  try {
+    await client.connect();
+    console.log("MongoDB Connection Success");
+    
+    const { name, projectName, projectLink, categoryWon, resumeLink, gradYear, category, featured } = req.body;
+    const database = client.db("resume");
+    const collection = database.collection("customers");
+
+    const result = await collection.insertOne({
+      name,
+      projectName,
+      projectLink,
+      categoryWon,
+      resumeLink,
+      gradYear,
+      category,
+      featured,
+    });
+
+    console.log("Document inserted:", result.ops);
+    res.status(200).json({ name, projectName, projectLink, categoryWon, resumeLink, gradYear, category, featured });
+
+  }
+  finally{
+    await client.close();
+  }
+  //res.status(200).json({ name: 'John Doe' })
 }
