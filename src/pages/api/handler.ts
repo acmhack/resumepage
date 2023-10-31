@@ -55,6 +55,9 @@ export default async function handler(
     res.status(200).json({ name, projectName, projectLink, categoryWon, resumeLink, gradYear, category, featured });
 
   }
+  catch (error) {
+    console.error('Error inserting document:', error);
+  }
   finally{
     await client.close();
   }
