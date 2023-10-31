@@ -1,84 +1,39 @@
 import styles from '../styles/components/Layout.module.css';
 import * as React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField, Button } from '@mui/material';
+import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField, Button, Radio, RadioGroup } from '@mui/material';
 import { useState } from 'react';
 import { CardSearchContext } from '../lib/Contexts';
+import Sidebar from './Sidebar';
+import Searchbar from './Searchbar';
+import ViewSwitch from './ViewSwitch';
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [sort, setSort] = useState('');
     const [search, setSearch] = useState('');
-    const [view, setView] = useState<'people' | 'projects'>('people');
+    const [view, setView] = useState('people');
+    const [gradyear, setGradYear] = useState<string[]>([]);
+    const [category, setCategory] = useState<string[]>([]);
 
     return (
-        <CardSearchContext.Provider
-            value={{ sort: sort, search: search, view: view, gradyear: [2023, 2024, 2025, 2026], category: ['overall', 'beginner', 'solo'] }}
-        >
+        <CardSearchContext.Provider value={{ sort: sort, search: search, view: view, gradyear: gradyear, category: category }}>
             <div className={styles.container}>
-                <div className={styles.sidebar}>
-                    <div className={styles.search}>
-                        <SearchIcon
-                            sx={{
-                                position: 'absolute',
-                                left: 18,
-                                zIndex: 99
-                            }}
-                        />
-                        <input
-                            type="text"
-                            className={styles.searchbar}
-                            placeholder="Search..."
-                            value={search}
-                            onChange={(e) => setSearch(e.currentTarget.value)}
-                        />
-                        {/*<TextField id="search" type="search" label="Search..." variant="outlined" onKeyUp={setState(this.value)}/>*/}
-                    </div>
-                    {view === 'people' && (
-                        <Button variant="contained" fullWidth onClick={() => setView('projects')}>
-                            View as Projects
-                        </Button>
-                    )}
-                    {view === 'projects' && (
-                        <Button variant="contained" fullWidth onClick={() => setView('people')}>
-                            View as People
-                        </Button>
-                    )}
-                    {/* TODO: Clear filters button */}
-                    {view === 'people' && (
-                        <>
-                            <div className={styles.filter}>
-                                <p className={styles.title}>Grad Year</p>
-                                <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="2023" />
-                                    <FormControlLabel control={<Checkbox />} label="2024" />
-                                    <FormControlLabel control={<Checkbox />} label="2025" />
-                                    <FormControlLabel control={<Checkbox />} label="2026" />
-                                </FormGroup>
-                            </div>
-                            <div className={styles.line}></div>
-                        </>
-                    )}
-                    <div className={styles.filter}>
-                        <p className={styles.title}>Categories</p>
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox />} label="Overall" />
-                            <FormControlLabel control={<Checkbox />} label="Beginner" />
-                            <FormControlLabel control={<Checkbox />} label="Solo" />
-                        </FormGroup>
-                    </div>
-                    <div className={styles.line}></div>
-                    <div className={styles.filter}>
-                        <FormControl fullWidth>
-                            <InputLabel>Sort By</InputLabel>
-                            <Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
-                                <MenuItem value={'feat'}>Featured</MenuItem>
-                                <MenuItem value={'asc'}>Ascending</MenuItem>
-                                <MenuItem value={'desc'}>Descending</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
+                <div className={styles.row}>
+                    <Searchbar search={search} setSearch={setSearch} />
+                    <ViewSwitch setView={setView}/>
                 </div>
-                {children}
+                <div className={styles.row}>
+                    <Sidebar
+                        view={view}
+                        sort={sort}
+                        gradyear={gradyear}
+                        category={category}
+                        setGradYear={setGradYear}
+                        setCategory={setCategory}
+                        setSort={setSort}
+                    />
+                    {children}
+                </div>
             </div>
         </CardSearchContext.Provider>
     );

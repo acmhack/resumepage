@@ -31,7 +31,7 @@ const projectsArray: IProjectCard[] = [
     }
 ];
 
-const testArray: IUserCard[] = [
+const usersArray: IUserCard[] = [
     {
         name: 'test',
         projectlink: 'test',
@@ -85,16 +85,15 @@ const testArray: IUserCard[] = [
 const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
     //TODO add type to searchFilter
     if (searchFilter.view === 'people') {
-        const search = searchFilter.search;
-        const gradyear = searchFilter.gradyear;
+        const search = searchFilter.search.toLowerCase();
+        const gradyear = searchFilter.gradyear.toString();
         const category = searchFilter.category;
         const sort = searchFilter.sort;
-        userCards = userCards.filter((card) => card.name.toLowerCase().includes(search.toLowerCase()));
-        if (gradyear.length != 0 && gradyear[0] != 0) {
-            //currently [0] is default, WIP remove gradyear[0] check by setting [] as default
+        userCards = userCards.filter((card) => card.name.toLowerCase().includes(search));
+        if (gradyear.length != 0) {
             userCards = userCards.filter((card) => gradyear.includes(card.gradyear));
         }
-        if (category.length != 0 && category[0] != '') {
+        if (category.length != 0) {
             userCards = userCards.filter((card) => category.includes(card.category));
         }
         switch (sort) {
@@ -109,11 +108,11 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
                 break;
         }
     } else if (searchFilter.view === 'projects') {
-        const search = searchFilter.search;
+        const search = searchFilter.search.toLowerCase();
         const category = searchFilter.category;
         const sort = searchFilter.sort;
-        projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search.toLowerCase()));
-        if (category.length != 0 && category[0] != '') {
+        projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search));
+        if (category.length != 0) {
             projectCards = projectCards.filter((card) => category.includes(card.category));
         }
         switch (sort) {
@@ -163,7 +162,7 @@ const Home: NextPage = () => {
 
     return (
         <div style={{ height: '100%' }}>
-            <div className={styles.cardContainer}>{displayCards(testArray, projectsArray, searchFilter)}</div>
+            <div className={styles.cardContainer}>{displayCards(usersArray, projectsArray, searchFilter)}</div>
         </div>
     );
 };
