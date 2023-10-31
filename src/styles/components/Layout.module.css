@@ -1,17 +1,22 @@
 .container {
     display: flex;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     width: 100%;
     background-color: #ebece5;
+    padding-left: 20em;
 }
 
 .sidebar {
+    position: fixed;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
     padding: 2em;
     gap: 1em;
+    width: 20em;
 }
 
 .search {

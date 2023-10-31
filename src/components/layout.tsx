@@ -1,14 +1,14 @@
 import styles from '../styles/components/Layout.module.css';
 import * as React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField, Button } from '@mui/material';
+import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField, Button, Radio, RadioGroup } from '@mui/material';
 import { useState } from 'react';
 import { CardSearchContext } from '../lib/Contexts';
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [sort, setSort] = useState('');
     const [search, setSearch] = useState('');
-    const [view, setView] = useState<'people' | 'projects'>('people');
+    const [view, setView] = useState('people');
     const [gradyear, setGradYear] = useState<string[]>([]);
     const [category, setCategory] = useState<string[]>([]);
 
@@ -53,16 +53,19 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                         />
                         {/*<TextField id="search" type="search" label="Search..." variant="outlined" onKeyUp={setState(this.value)}/>*/}
                     </div>
-                    {view === 'people' && (
-                        <Button variant="contained" fullWidth onClick={() => setView('projects')}>
-                            View as Projects
-                        </Button>
-                    )}
-                    {view === 'projects' && (
-                        <Button variant="contained" fullWidth onClick={() => setView('people')}>
-                            View as People
-                        </Button>
-                    )}
+                    <div className={styles.filter}>
+                      <p className={styles.title}>View As</p>
+                      <RadioGroup
+                        defaultValue="projects"
+                        onChange={(e) => {
+                          setView(e.target.value);
+                        }}
+                      >
+                        <FormControlLabel value="people" control={<Radio />} label="People" />
+                        <FormControlLabel value="projects" control={<Radio />} label="Projects" />
+                      </RadioGroup>
+                    </div>
+                    <div className={styles.line}></div>
                     {/* TODO: Clear filters button */}
                     {view === 'people' && (
                         <>
