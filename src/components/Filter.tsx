@@ -7,7 +7,7 @@ interface IProps {
 
 const Filter = ({ sort, setSort }: IProps) => {
 	return (
-		<FormControl sx={{ width: '20em' }}>
+		<FormControl sx={{ width: '20em' }} size='small'>
 			<InputLabel>Sort By</InputLabel>
 			<Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
 				<MenuItem value={'feat'}>Featured</MenuItem>

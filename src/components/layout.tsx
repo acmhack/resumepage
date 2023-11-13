@@ -18,7 +18,7 @@ const darkTheme = createTheme({
 });
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
-	const [sort, setSort] = useState('');
+	const [sort, setSort] = useState('feat');
 	const [search, setSearch] = useState('');
 	const [view, setView] = useState('people');
 	const [gradyear, setGradYear] = useState<string[]>([]);
