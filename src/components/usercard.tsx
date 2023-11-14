@@ -3,7 +3,7 @@ import { Card, CardContent, CardActions, Button } from '@mui/material';
 import { IUserCard } from '../interfaces/UserCard';
 import styles from '../styles/components/UserCard.module.css';
 
-const UserCard = ({ name, resumelink, projectlink, gradyear, category, featured }: IUserCard) => {
+const UserCard = ({ name, resumelink, projectlink, grad, category, featured, projectName, school }: IUserCard) => {
 	return (
 		<Card style={{ width: 250, height: 350, backgroundColor: '#1C1C1C', display: 'flex', flexDirection: 'column', borderRadius: '1em' }}>
 			<CardContent style={{ padding: '1em 0' }}>
@@ -11,8 +11,10 @@ const UserCard = ({ name, resumelink, projectlink, gradyear, category, featured 
 				<br /> {/* diagnostic */}
 				<div className={styles.line}></div>
 				<div className={styles.contentContainer}>
-					<p>Grad Year: {gradyear}</p>
+					<p>Project: {projectName}</p>
 					<p>Category: {category}</p>
+					<p>Attending {school}</p>
+					<p>Graduating {grad}</p>
 					<p>Featured: {featured.toString()}</p>
 				</div>
 			</CardContent>

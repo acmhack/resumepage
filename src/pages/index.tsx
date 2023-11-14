@@ -36,48 +36,60 @@ const usersArray: IUserCard[] = [
         name: 'test',
         projectlink: 'test',
         resumelink: 'test',
-        gradyear: 2023,
+        grad: 'May 2023',
         category: 'overall',
+        projectName: 'test',
+        school: 'Missouri S&T',
         featured: true
     },
     {
         name: 'anotherTest',
         projectlink: 'cool',
         resumelink: 'muypoggers',
-        gradyear: 2024,
+        grad: 'May 2024',
         category: 'beginner',
+        projectName: 'test',
+        school: 'Missouri S&T',
         featured: false
     },
     {
         name: 'zaTest',
         projectlink: 'coolio',
         resumelink: 'muchopoggers',
-        gradyear: 2025,
+        grad: 'May 2025',
         category: 'solo',
+        projectName: 'test',
+        school: 'Missouri S&T',
         featured: true
     },
     {
         name: 'baby',
         projectlink: 'dont matter',
         resumelink: 'omegapoggers',
-        gradyear: 2026,
+        grad: 'May 2026',
         category: 'overall',
+        projectName: 'test',
+        school: 'Missouri S&T',
         featured: false
     },
     {
         name: 'coolbaby',
         projectlink: 'do matter',
         resumelink: 'omega2poggers',
-        gradyear: 2023,
+        grad: 'May 2023',
         category: 'beginner',
+        projectName: 'test',
+        school: 'Missouri S&T',
         featured: true
     },
     {
         name: 'John Smith Jr.',
         projectlink: 'generic project.git or whatever',
         resumelink: 'a link to a pdf of some sort',
-        gradyear: 2024,
+        grad: 'May 2024',
         category: 'beginner',
+        projectName: 'test',
+        school: 'Missouri S&T',
         featured: false
     }
 ];
@@ -91,7 +103,7 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
         const sort = searchFilter.sort;
         userCards = userCards.filter((card) => card.name.toLowerCase().includes(search));
         if (gradyear.length != 0) {
-            userCards = userCards.filter((card) => gradyear.includes(card.gradyear));
+            userCards = userCards.filter((card) => card.grad.includes(gradyear));
         }
         if (category.length != 0) {
             userCards = userCards.filter((card) => category.includes(card.category));
@@ -138,8 +150,10 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
                         projectlink={card.projectlink}
                         resumelink={card.resumelink}
                         featured={card.featured}
-                        gradyear={card.gradyear}
+                        grad={card.grad}
                         category={card.category}
+                        projectName={card.projectName}
+                        school={card.school}
                     ></UserCard>
                 ))}
             {searchFilter.view === 'projects' &&

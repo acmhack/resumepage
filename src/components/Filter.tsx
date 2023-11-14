@@ -11,8 +11,8 @@ const Filter = ({ sort, setSort }: IProps) => {
 			<InputLabel>Sort By</InputLabel>
 			<Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
 				<MenuItem value={'feat'}>Featured</MenuItem>
-				<MenuItem value={'asc'}>Ascending</MenuItem>
-				<MenuItem value={'desc'}>Descending</MenuItem>
+				<MenuItem value={'asc'}>Ascending (A-Z)</MenuItem>
+				<MenuItem value={'desc'}>Descending (Z-A)</MenuItem>
 			</Select>
 		</FormControl>
 	);

@@ -29,6 +29,7 @@
     width: 100%;
     text-align: center;
     background-color: #6613d3;
+    background-color: #520dad;
 }
 
 .button:hover {
@@ -37,7 +38,7 @@
 
 .divider {
     height: 100%;
-    width: 2px;
+    width: 3px;
     background-color: white;
     opacity: .5;
 }

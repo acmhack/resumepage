@@ -2,7 +2,9 @@ export interface IUserCard {
     name: string;
     resumelink: string;
     projectlink: string;
-    gradyear: number;
+    grad: string;
     category: string;
+    projectName: string;
+    school: string;
     featured: boolean;
 }
