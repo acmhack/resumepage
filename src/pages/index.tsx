@@ -147,7 +147,7 @@ const Home: NextPage = () => {
                     userCards = userCards.sort((a, b) => b.name.localeCompare(a.name));
                     break;
                 case 'feat':
-                    userCards = userCards.filter((card) => card.featured);
+                    userCards = userCards.sort((a, b) => (a.featured && !b.featured) ? 0 : 1);
                     break;
             }
         } else if (searchFilter.view === 'projects') {
@@ -166,7 +166,7 @@ const Home: NextPage = () => {
                     projectCards = projectCards.sort((a, b) => b.name.localeCompare(a.name));
                     break;
                 case 'feat':
-                    projectCards = projectCards.filter((card) => card.featured);
+                    projectCards = projectCards.sort((a, b) => (a.featured && !b.featured) ? 0 : 1);
                     break;
             }
         }
