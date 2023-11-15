@@ -5,28 +5,38 @@ import styles from '../styles/components/UserCard.module.css';
 
 const UserCard = ({ name, resumelink, projectlink, grad, category, featured, projectName, school }: IUserCard) => {
 	return (
-		<Card style={{ width: 250, height: 350, backgroundColor: '#1C1C1C', display: 'flex', flexDirection: 'column', borderRadius: '1em' }}>
-			<CardContent style={{ padding: '1em 0' }}>
+		<Card style={{ width: 250, height: 350, backgroundColor: '#1C1C1C', borderRadius: '1em' }}>
+			<CardContent style={{ padding: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
 				<h2 className={styles.name}>{name}</h2>
-				<br /> {/* diagnostic */}
 				<div className={styles.line}></div>
 				<div className={styles.contentContainer}>
-					<p>Project: {projectName}</p>
-					<p>Category: {category}</p>
-					<p>Attending {school}</p>
-					<p>Graduating {grad}</p>
-					<p>Featured: {featured.toString()}</p>
+					<div>
+						<p className={styles.title}>Project</p>
+						<p>{projectName}</p>
+					</div>
+					<div>
+						<p className={styles.title}>Categories</p>
+						<p>{category}</p>
+					</div>
+					<div>
+						<p className={styles.title}>School</p>
+						<p>{school}</p>
+					</div>
+					<div>
+						<p className={styles.title}>Graduation</p>
+						<p>{grad}</p>
+					</div>
+				</div>
+				<div className={styles.buttonContainer}>
+					<a href={resumelink} className={styles.button}>
+						RESUME
+					</a>
+					<div className={styles.divider}></div>
+					<a href={projectlink} className={styles.button}>
+						PROJECT
+					</a>
 				</div>
 			</CardContent>
-			<CardActions disableSpacing style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-evenly', padding: 0 }}>
-				<a href={resumelink} className={styles.button}>
-					RESUME
-				</a>
-                <div className={styles.divider}></div>
-				<a href={projectlink} className={styles.button}>
-					PROJECT
-				</a>
-			</CardActions>
 		</Card>
 	);
 };

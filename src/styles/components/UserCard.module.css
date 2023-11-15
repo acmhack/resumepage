@@ -1,6 +1,8 @@
 .name {
 	text-align: center;
+    padding: .7em;
 	/* color: #ff52d0; */
+    font-family: Ubuntu;
 }
 
 .line {
@@ -11,15 +13,20 @@
 }
 
 .contentContainer {
-	padding: 1.5em;
+	padding: .5em 1.5em;
 	display: flex;
 	flex-direction: column;
-	gap: 0.5em;
+    /* gap: .5em; */
+    justify-content: space-evenly;
+    height: 100%;
+    overflow-y: scroll;
 }
 
-.contentContainer p {
-    font-size: 1.05em;
-    /* font-weight: bold; */
+.buttonContainer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0;
 }
 
 .button {
@@ -28,8 +35,8 @@
     font-weight: bold;
     width: 100%;
     text-align: center;
-    background-color: #6613d3;
     background-color: #520dad;
+    font-family: Ubuntu;
 }
 
 .button:hover {
@@ -41,4 +48,11 @@
     width: 3px;
     background-color: white;
     opacity: .5;
+}
+
+.title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #a46fe9;
+    font-family: Ubuntu;
 }
