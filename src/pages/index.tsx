@@ -95,6 +95,13 @@ const usersArray: IUserCard[] = [
     }
 ];
 
+const tempstyle = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+}
+
 const Home: NextPage = () => {
     const searchFilter = useContext(CardSearchContext);
     const [choosename, chooseUser] = useState('');
@@ -104,6 +111,7 @@ const Home: NextPage = () => {
     }
     const handleClose = () => {
         console.log('help')
+        console.log('release me');
         chooseUser('NO USER');
     }
 
@@ -161,7 +169,7 @@ const Home: NextPage = () => {
                             <Modal
                                 open={card.name === choosename}
                                 onClose={handleClose}>
-                                <>
+                                <div style={tempstyle}>
                                 <UserCard
                                     key={i}
                                     name={card.name}
@@ -177,7 +185,7 @@ const Home: NextPage = () => {
                                     onClick={handleClose}>
                                     LEAVE
                                 </Button>
-                                </>
+                                </div>
                             </Modal>
                             <UserCard
                                 key={i}
