@@ -115,17 +115,14 @@ const tempstyle = {
 
 const Home: NextPage = () => {
     const searchFilter = useContext(CardSearchContext);
-    const [choosename, chooseUser] = useState('');
-    const [test, settest] = useState({user: emptyUser(), isOpen: false});
-    const [testbool, setbool] = useState(false);
-    const [currentuser, setuser] = useState(emptyUser())
+    const [currentuser, setcurrentuser] = useState({user: emptyUser(), isOpen: false});
 
     const handleOpen = (card : IUserCard) => () => {
-        settest({user: card, isOpen: true});
+        setcurrentuser({user: card, isOpen: true});
     }
     const handleClose = () => {
         console.log('please')
-        settest({user: emptyUser(), isOpen: false});
+        setcurrentuser({user: emptyUser(), isOpen: false});
     }
 
     const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
@@ -210,20 +207,20 @@ const Home: NextPage = () => {
     return (
         <div style={{ height: '100%' }}>
             <Modal
-                                open={test.isOpen} //test.isOpen && card.name === test.user.name
+                                open={currentuser.isOpen} //test.isOpen && card.name === test.user.name
                                 onClose={handleClose}
                                 aria-labelledby='test'
                                 aria-describedby='this is a test'>
                                 <div style={tempstyle}>
                                 <UserCard
-                                    name={test.user.name}
-                                    projectlink={test.user.projectlink}
-                                    resumelink={test.user.resumelink}
-                                    featured={test.user.featured}
-                                    grad={test.user.grad}
-                                    category={test.user.category}
-                                    projectName={test.user.projectName}
-                                    school={test.user.school}
+                                    name={currentuser.user.name}
+                                    projectlink={currentuser.user.projectlink}
+                                    resumelink={currentuser.user.resumelink}
+                                    featured={currentuser.user.featured}
+                                    grad={currentuser.user.grad}
+                                    category={currentuser.user.category}
+                                    projectName={currentuser.user.projectName}
+                                    school={currentuser.user.school}
                                 ></UserCard>
                                 <Button
                                     onClick={handleClose}>
