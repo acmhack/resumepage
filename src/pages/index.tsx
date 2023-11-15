@@ -1,7 +1,8 @@
 import type { NextPage } from 'next';
 import styles from '../styles/Home.module.css';
 import UserCard from '../components/usercard';
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Modal, Button } from '@mui/material';
 import { CardSearchContext } from '../lib/Contexts';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
 import { IUserCard } from '../interfaces/UserCard';
@@ -94,85 +95,117 @@ const usersArray: IUserCard[] = [
     }
 ];
 
-const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
-    //TODO add type to searchFilter
-    if (searchFilter.view === 'people') {
-        const search = searchFilter.search.toLowerCase();
-        const gradyear = searchFilter.gradyear.toString();
-        const category = searchFilter.category;
-        const sort = searchFilter.sort;
-        userCards = userCards.filter((card) => card.name.toLowerCase().includes(search));
-        if (gradyear.length != 0) {
-            userCards = userCards.filter((card) => card.grad.includes(gradyear));
-        }
-        if (category.length != 0) {
-            userCards = userCards.filter((card) => category.includes(card.category));
-        }
-        switch (sort) {
-            case 'asc':
-                userCards = userCards.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'desc':
-                userCards = userCards.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'feat':
-                userCards = userCards.filter((card) => card.featured);
-                break;
-        }
-    } else if (searchFilter.view === 'projects') {
-        const search = searchFilter.search.toLowerCase();
-        const category = searchFilter.category;
-        const sort = searchFilter.sort;
-        projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search));
-        if (category.length != 0) {
-            projectCards = projectCards.filter((card) => category.includes(card.category));
-        }
-        switch (sort) {
-            case 'asc':
-                projectCards = projectCards.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'desc':
-                projectCards = projectCards.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            case 'feat':
-                projectCards = projectCards.filter((card) => card.featured);
-                break;
-        }
-    }
-
-    return (
-        <>
-            {searchFilter.view === 'people' &&
-                userCards.map((card, i) => (
-                    <UserCard
-                        key={i}
-                        name={card.name}
-                        projectlink={card.projectlink}
-                        resumelink={card.resumelink}
-                        featured={card.featured}
-                        grad={card.grad}
-                        category={card.category}
-                        projectName={card.projectName}
-                        school={card.school}
-                    ></UserCard>
-                ))}
-            {searchFilter.view === 'projects' &&
-                projectCards.map((card, i) => (
-                    <ProjectCard
-                        key={i}
-                        name={card.name}
-                        members={card.members}
-                        projectlink={card.projectlink}
-                        featured={card.featured}
-                        category={card.category}
-                    ></ProjectCard>
-                ))}
-        </>
-    );
-};
-
 const Home: NextPage = () => {
     const searchFilter = useContext(CardSearchContext);
+    const [choosename, chooseUser] = useState('');
+
+    const handleOpen = (card : IUserCard) => () => {
+        chooseUser(card.name);
+    }
+    const handleClose = () => {
+        console.log('help')
+        chooseUser('NO USER');
+    }
+
+    const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
+        //TODO add type to searchFilter
+        if (searchFilter.view === 'people') {
+            const search = searchFilter.search.toLowerCase();
+            const gradyear = searchFilter.gradyear.toString();
+            const category = searchFilter.category;
+            const sort = searchFilter.sort;
+            userCards = userCards.filter((card) => card.name.toLowerCase().includes(search));
+            if (gradyear.length != 0) {
+                userCards = userCards.filter((card) => card.grad.includes(gradyear));
+            }
+            if (category.length != 0) {
+                userCards = userCards.filter((card) => category.includes(card.category));
+            }
+            switch (sort) {
+                case 'asc':
+                    userCards = userCards.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'desc':
+                    userCards = userCards.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'feat':
+                    userCards = userCards.filter((card) => card.featured);
+                    break;
+            }
+        } else if (searchFilter.view === 'projects') {
+            const search = searchFilter.search.toLowerCase();
+            const category = searchFilter.category;
+            const sort = searchFilter.sort;
+            projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search));
+            if (category.length != 0) {
+                projectCards = projectCards.filter((card) => category.includes(card.category));
+            }
+            switch (sort) {
+                case 'asc':
+                    projectCards = projectCards.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'desc':
+                    projectCards = projectCards.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'feat':
+                    projectCards = projectCards.filter((card) => card.featured);
+                    break;
+            }
+        }
+    
+        return (
+            <>
+                {searchFilter.view === 'people' &&
+                    userCards.map((card, i) => (
+                        <div onClick={handleOpen(card)}>
+                            <Modal
+                                open={card.name === choosename}
+                                onClose={handleClose}>
+                                <>
+                                <UserCard
+                                    key={i}
+                                    name={card.name}
+                                    projectlink={card.projectlink}
+                                    resumelink={card.resumelink}
+                                    featured={card.featured}
+                                    grad={card.grad}
+                                    category={card.category}
+                                    projectName={card.projectName}
+                                    school={card.school}
+                                ></UserCard>
+                                <Button
+                                    onClick={handleClose}>
+                                    LEAVE
+                                </Button>
+                                </>
+                            </Modal>
+                            <UserCard
+                                key={i}
+                                name={card.name}
+                                projectlink={card.projectlink}
+                                resumelink={card.resumelink}
+                                featured={card.featured}
+                                grad={card.grad}
+                                category={card.category}
+                                projectName={card.projectName}
+                                school={card.school}
+                            ></UserCard>
+                        </div>
+                    ))}
+                {searchFilter.view === 'projects' &&
+                    projectCards.map((card, i) => (
+                        <ProjectCard
+                            key={i}
+                            name={card.name}
+                            members={card.members}
+                            projectlink={card.projectlink}
+                            featured={card.featured}
+                            category={card.category}
+                        ></ProjectCard>
+                    ))}
+            </>
+        );
+    };
 
     return (
         <div style={{ height: '100%' }}>
