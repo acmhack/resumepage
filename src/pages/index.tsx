@@ -95,6 +95,17 @@ const usersArray: IUserCard[] = [
     }
 ];
 
+const emptyUser = (): IUserCard => ({
+    name: '',
+    projectlink: '',
+    resumelink: '',
+    grad: '',
+    category: '',
+    projectName: '',
+    school: '',
+    featured: false
+})
+
 const tempstyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -105,14 +116,16 @@ const tempstyle = {
 const Home: NextPage = () => {
     const searchFilter = useContext(CardSearchContext);
     const [choosename, chooseUser] = useState('');
+    const [test, settest] = useState({user: emptyUser(), isOpen: false});
+    const [testbool, setbool] = useState(false);
+    const [currentuser, setuser] = useState(emptyUser())
 
     const handleOpen = (card : IUserCard) => () => {
-        chooseUser(card.name);
+        settest({user: card, isOpen: true});
     }
     const handleClose = () => {
-        console.log('help')
-        console.log('release me');
-        chooseUser('NO USER');
+        console.log('please')
+        settest({user: emptyUser(), isOpen: false});
     }
 
     const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
@@ -166,27 +179,6 @@ const Home: NextPage = () => {
                 {searchFilter.view === 'people' &&
                     userCards.map((card, i) => (
                         <div onClick={handleOpen(card)}>
-                            <Modal
-                                open={card.name === choosename}
-                                onClose={handleClose}>
-                                <div style={tempstyle}>
-                                <UserCard
-                                    key={i}
-                                    name={card.name}
-                                    projectlink={card.projectlink}
-                                    resumelink={card.resumelink}
-                                    featured={card.featured}
-                                    grad={card.grad}
-                                    category={card.category}
-                                    projectName={card.projectName}
-                                    school={card.school}
-                                ></UserCard>
-                                <Button
-                                    onClick={handleClose}>
-                                    LEAVE
-                                </Button>
-                                </div>
-                            </Modal>
                             <UserCard
                                 key={i}
                                 name={card.name}
@@ -217,6 +209,28 @@ const Home: NextPage = () => {
 
     return (
         <div style={{ height: '100%' }}>
+            <Modal
+                                open={test.isOpen} //test.isOpen && card.name === test.user.name
+                                onClose={handleClose}
+                                aria-labelledby='test'
+                                aria-describedby='this is a test'>
+                                <div style={tempstyle}>
+                                <UserCard
+                                    name={test.user.name}
+                                    projectlink={test.user.projectlink}
+                                    resumelink={test.user.resumelink}
+                                    featured={test.user.featured}
+                                    grad={test.user.grad}
+                                    category={test.user.category}
+                                    projectName={test.user.projectName}
+                                    school={test.user.school}
+                                ></UserCard>
+                                <Button
+                                    onClick={handleClose}>
+                                    LEAVE
+                                </Button>
+                                </div>
+                            </Modal>
             <div className={styles.cardContainer}>{displayCards(usersArray, projectsArray, searchFilter)}</div>
         </div>
     );
