@@ -106,6 +106,14 @@ const emptyUser = (): IUserCard => ({
     featured: false
 })
 
+const emptyProject = (): IProjectCard => ({
+    name: '',
+    members: [],
+    projectlink: '',
+    category: '',
+    featured: false
+})
+
 const tempstyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
@@ -116,13 +124,17 @@ const tempstyle = {
 const Home: NextPage = () => {
     const searchFilter = useContext(CardSearchContext);
     const [currentuser, setcurrentuser] = useState({user: emptyUser(), isOpen: false});
+    const [currentproject, setcurrentproject] = useState({project: emptyProject(), isOpen: false});
 
-    const handleOpen = (card : IUserCard) => () => {
+    const handleOpenUser = (card : IUserCard) => () => {
         setcurrentuser({user: card, isOpen: true});
     }
+    const handleOpenProject = (card: IProjectCard) => () => {
+        setcurrentproject({project: card, isOpen: true})
+    }
     const handleClose = () => {
-        console.log('please')
         setcurrentuser({user: emptyUser(), isOpen: false});
+        //setcurrentproject({project: emptyProject(), isOpen: false})
     }
 
     const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
@@ -175,7 +187,7 @@ const Home: NextPage = () => {
             <>
                 {searchFilter.view === 'people' &&
                     userCards.map((card, i) => (
-                        <div onClick={handleOpen(card)}>
+                        <div onClick={handleOpenUser(card)}>
                             <UserCard
                                 key={i}
                                 name={card.name}
@@ -191,6 +203,7 @@ const Home: NextPage = () => {
                     ))}
                 {searchFilter.view === 'projects' &&
                     projectCards.map((card, i) => (
+                        <div onClick={handleOpenProject(card)}>
                         <ProjectCard
                             key={i}
                             name={card.name}
@@ -199,6 +212,7 @@ const Home: NextPage = () => {
                             featured={card.featured}
                             category={card.category}
                         ></ProjectCard>
+                        </div>
                     ))}
             </>
         );
@@ -207,27 +221,41 @@ const Home: NextPage = () => {
     return (
         <div style={{ height: '100%' }}>
             <Modal
-                                open={currentuser.isOpen} //test.isOpen && card.name === test.user.name
-                                onClose={handleClose}
-                                aria-labelledby='test'
-                                aria-describedby='this is a test'>
-                                <div style={tempstyle}>
-                                <UserCard
-                                    name={currentuser.user.name}
-                                    projectlink={currentuser.user.projectlink}
-                                    resumelink={currentuser.user.resumelink}
-                                    featured={currentuser.user.featured}
-                                    grad={currentuser.user.grad}
-                                    category={currentuser.user.category}
-                                    projectName={currentuser.user.projectName}
-                                    school={currentuser.user.school}
-                                ></UserCard>
-                                <Button
-                                    onClick={handleClose}>
-                                    LEAVE
-                                </Button>
-                                </div>
-                            </Modal>
+                open={currentuser.isOpen}
+                onClose={handleClose}
+                aria-labelledby='test'
+                aria-describedby='this is a test'>
+                <div style={tempstyle}>
+                    <UserCard
+                        name={currentuser.user.name}
+                        projectlink={currentuser.user.projectlink}
+                        resumelink={currentuser.user.resumelink}
+                        featured={currentuser.user.featured}
+                        grad={currentuser.user.grad}
+                        category={currentuser.user.category}
+                        projectName={currentuser.user.projectName}
+                        school={currentuser.user.school}
+                    ></UserCard>
+                </div>
+            </Modal>
+            <Modal
+                open={currentproject.isOpen}
+                onClose={handleClose}
+                aria-labelledby='test'
+                aria-describedby='this is a test'>
+                <div style={tempstyle}>
+                    <UserCard
+                        name={currentuser.user.name}
+                        projectlink={currentuser.user.projectlink}
+                        resumelink={currentuser.user.resumelink}
+                        featured={currentuser.user.featured}
+                        grad={currentuser.user.grad}
+                        category={currentuser.user.category}
+                        projectName={currentuser.user.projectName}
+                        school={currentuser.user.school}
+                    ></UserCard>
+                </div>
+            </Modal>
             <div className={styles.cardContainer}>{displayCards(usersArray, projectsArray, searchFilter)}</div>
         </div>
     );
