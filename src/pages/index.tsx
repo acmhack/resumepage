@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import UserCard from '../components/usercard';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
@@ -104,6 +104,7 @@ const usersArray: IUserCard[] = [
 ];
 
 const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
+	console.log(userCards);
 	//TODO add type to searchFilter
 	if (searchFilter.view === 'people') {
 		const search = searchFilter.search.toLowerCase();
@@ -111,10 +112,10 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 		const category = searchFilter.category;
 		const sort = searchFilter.sort;
 		userCards = userCards.filter((card) => card.name.toLowerCase().includes(search));
-		if (gradyear.length != 0) {
-			userCards = userCards.filter((card) => card.grad.includes(gradyear));
+		if (gradyear.length !== 0) {
+			userCards = userCards.filter((card) => card.gradYear === gradyear);
 		}
-		if (category.length != 0) {
+		if (category.length !== 0) {
 			userCards = userCards.filter((card) => category.includes(card.category));
 		}
 		switch (sort) {
@@ -128,12 +129,13 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 				userCards = userCards.filter((card) => card.featured);
 				break;
 		}
+		console.log(userCards);
 	} else if (searchFilter.view === 'projects') {
 		const search = searchFilter.search.toLowerCase();
 		const category = searchFilter.category;
 		const sort = searchFilter.sort;
 		projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search));
-		if (category.length != 0) {
+		if (category.length !== 0) {
 			projectCards = projectCards.filter((card) => category.includes(card.category));
 		}
 		switch (sort) {
@@ -151,19 +153,7 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 
 	return (
 		<>
-			{searchFilter.view === 'people' &&
-				userCards.map((card, i) => (
-					<UserCard
-						key={i}
-						name={card.name}
-						projectlink={card.projectlink}
-						resumelink={card.resumelink}
-						featured={card.featured}
-						grad={card.grad}
-						category={card.category}
-						projectName={card.projectName}
-						school={card.school}></UserCard>
-				))}
+			{searchFilter.view === 'people' && userCards.map((card, i) => <UserCard key={i} {...card}></UserCard>)}
 			{searchFilter.view === 'projects' &&
 				projectCards.map((card, i) => (
 					<ProjectCard
@@ -179,11 +169,18 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 };
 
 const Home: NextPage = () => {
+	const [users, setUsers] = useState([]);
 	const searchFilter = useContext(CardSearchContext);
+
+	useEffect(() => {
+		fetch('/api/resumes')
+			.then((res) => res.json())
+			.then((data) => setUsers(data));
+	}, []);
 
 	return (
 		<div style={{ height: '100%' }}>
-			<div className={styles.cardContainer}>{displayCards(usersArray, projectsArray, searchFilter)}</div>
+			<div className={styles.cardContainer}>{displayCards(users, projectsArray, searchFilter)}</div>
 		</div>
 	);
 };

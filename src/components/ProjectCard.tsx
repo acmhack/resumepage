@@ -1,5 +1,4 @@
-import React from 'react';
-import { Card, CardContent, CardActions, Button } from '@mui/material';
+import { Card, CardActions, CardContent } from '@mui/material';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
 import styles from '../styles/components/UserCard.module.css';
 
@@ -24,11 +23,11 @@ const ProjectCard = ({ name, members, projectlink, category, featured }: IProjec
 				</div>
 			</CardContent>
 			<CardActions disableSpacing style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-evenly', padding: 0 }}>
-				<a href={''} className={styles.button}>
+				<a target="_blank" rel="noreferrer noopener" href={''} className={styles.button}>
 					MEMBERS
 				</a>
 				<div className={styles.divider}></div>
-				<a href={projectlink} className={styles.button}>
+				<a target="_blank" rel="noreferrer noopener" href={projectlink} className={styles.button}>
 					PROJECT
 				</a>
 			</CardActions>
