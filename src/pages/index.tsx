@@ -1,9 +1,8 @@
 import type { NextPage } from 'next';
 import { useContext, useEffect, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
-import UserCard from '../components/usercard';
+import UserCard from '../components/UserCard';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
-import { IUserCard } from '../interfaces/UserCard';
 import { CardSearchContext } from '../lib/Contexts';
 import styles from '../styles/Home.module.css';
 
@@ -40,70 +39,7 @@ const projectsArray: IProjectCard[] = [
 	}
 ];
 
-const usersArray: IUserCard[] = [
-	{
-		name: 'test',
-		projectlink: 'test',
-		resumelink: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
-		grad: 'May 2023',
-		category: 'overall',
-		projectName: 'test',
-		school: 'Missouri S&T',
-		featured: true
-	},
-	{
-		name: 'anotherTest',
-		projectlink: 'cool',
-		resumelink: 'muypoggers',
-		grad: 'May 2024',
-		category: 'beginner',
-		projectName: 'test',
-		school: 'Missouri S&T',
-		featured: false
-	},
-	{
-		name: 'zaTest',
-		projectlink: 'coolio',
-		resumelink: 'muchopoggers',
-		grad: 'May 2025',
-		category: 'solo',
-		projectName: 'test',
-		school: 'Missouri S&T',
-		featured: true
-	},
-	{
-		name: 'baby',
-		projectlink: 'dont matter',
-		resumelink: 'omegapoggers',
-		grad: 'May 2026',
-		category: 'overall',
-		projectName: 'test',
-		school: 'Missouri S&T',
-		featured: false
-	},
-	{
-		name: 'coolbaby',
-		projectlink: 'do matter',
-		resumelink: 'omega2poggers',
-		grad: 'May 2023',
-		category: 'beginner',
-		projectName: 'test',
-		school: 'Missouri S&T',
-		featured: true
-	},
-	{
-		name: 'John Smith Jr.',
-		projectlink: 'generic project.git or whatever',
-		resumelink: 'a link to a pdf of some sort',
-		grad: 'May 2024',
-		category: 'beginner',
-		projectName: 'test',
-		school: 'Missouri S&T',
-		featured: false
-	}
-];
-
-const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
+const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFilter: any) => {
 	console.log(userCards);
 	//TODO add type to searchFilter
 	if (searchFilter.view === 'people') {
@@ -111,19 +47,19 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 		const gradyear = searchFilter.gradyear.toString();
 		const category = searchFilter.category;
 		const sort = searchFilter.sort;
-		userCards = userCards.filter((card) => card.name.toLowerCase().includes(search));
+		userCards = userCards.filter((card) => `${card.firstName} ${card.lastName}`.toLowerCase().includes(search));
 		if (gradyear.length !== 0) {
-			userCards = userCards.filter((card) => card.gradYear === gradyear);
+			userCards = userCards.filter((card) => card.graduationYear === gradyear);
 		}
 		if (category.length !== 0) {
 			userCards = userCards.filter((card) => category.includes(card.category));
 		}
 		switch (sort) {
 			case 'asc':
-				userCards = userCards.sort((a, b) => a.name.localeCompare(b.name));
+				userCards = userCards.sort((a, b) => `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`));
 				break;
 			case 'desc':
-				userCards = userCards.sort((a, b) => b.name.localeCompare(a.name));
+				userCards = userCards.sort((a, b) => `${b.firstName} ${b.lastName}`.localeCompare(`${a.firstName} ${a.lastName}`));
 				break;
 			case 'feat':
 				userCards = userCards.filter((card) => card.featured);

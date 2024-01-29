@@ -1,11 +1,12 @@
 import { Card, CardContent } from '@mui/material';
-import { useMemo } from 'react';
-import { IUserCard } from '../interfaces/UserCard';
+import React, { useMemo } from 'react';
 import styles from '../styles/components/UserCard.module.css';
 
-const UserCard = ({ name, resumeLink, projectLink, gradYear, category, featured, projectName }: IUserCard) => {
+const UserCard: React.FC<User> = ({ firstName, lastName, resume, projectLink, graduationYear, category, featured, projectName }) => {
 	const resumeURL = useMemo(() => {
-		let url = resumeLink;
+		let url = resume;
+
+		if (url === null) return null;
 
 		if (url.startsWith('http://')) {
 			url.replace('http://', 'https://');
@@ -15,12 +16,14 @@ const UserCard = ({ name, resumeLink, projectLink, gradYear, category, featured,
 		}
 
 		return url;
-	}, [resumeLink]);
+	}, [resume]);
 
 	return (
 		<Card style={{ width: 250, height: 350, backgroundColor: '#1C1C1C', borderRadius: '1em' }}>
 			<CardContent style={{ padding: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
-				<h2 className={styles.name}>{name}</h2>
+				<h2 className={styles.name}>
+					{firstName} {lastName}
+				</h2>
 				<div className={styles.line}></div>
 				<div className={styles.contentContainer}>
 					<div>
@@ -37,15 +40,23 @@ const UserCard = ({ name, resumeLink, projectLink, gradYear, category, featured,
 					</div> */}
 					<div>
 						<p className={styles.title}>Graduation</p>
-						<p>{gradYear}</p>
+						<p>{graduationYear}</p>
 					</div>
 				</div>
 				<div className={styles.buttonContainer}>
-					<a target="_blank" rel="noreferrer noopener" href={resumeURL} className={styles.button}>
+					<a
+						target="_blank"
+						rel="noreferrer noopener"
+						href={resumeURL ?? '#'}
+						className={styles.button + (resumeURL === null ? ' ' + styles.disabled : '')}>
 						RESUME
 					</a>
 					<div className={styles.divider}></div>
-					<a target="_blank" rel="noreferrer noopener" href={projectLink} className={styles.button}>
+					<a
+						target="_blank"
+						rel="noreferrer noopener"
+						href={projectLink ?? '#'}
+						className={styles.button + (projectLink === null ? ' ' + styles.disabled : '')}>
 						PROJECT
 					</a>
 				</div>

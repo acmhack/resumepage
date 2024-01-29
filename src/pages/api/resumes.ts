@@ -1,24 +1,12 @@
+import { WithId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getCollection } from '../../lib/db';
 
-//data
-//with fields :)
-type Data = {
-	name: string;
-	projectName: string;
-	projectLink: string;
-	categoryWon: string;
-	resumeLink: string;
-	gradYear: number;
-	category: string;
-	featured: boolean;
-};
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data[] | string>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<WithId<User>[] | string>) {
 	switch (req.method) {
 		case 'GET':
 			try {
-				const collection = await getCollection<Data>('customers');
+				const collection = await getCollection<User>('customers');
 
 				const data = await collection.find().toArray();
 
