@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	switch (req.method) {
 		case 'GET':
 			try {
-				const collection = await getCollection<User>('customers');
+				const collection = await getCollection<User>('applications');
 
 				const data = await collection.find().toArray();
 

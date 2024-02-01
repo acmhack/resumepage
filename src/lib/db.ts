@@ -15,11 +15,11 @@ async function connect(): Promise<MongoClient> {
 
 export async function getCollection<T extends Document>(collection: string): Promise<Collection<T>> {
 	if (client) {
-		return client.db('resume').collection(collection);
+		return client.db(process.env.STAGE === 'prod' ? 'main' : 'test').collection(collection);
 	} else if (promise) {
-		return promise.then((client) => client.db('resume').collection(collection));
+		return promise.then((client) => client.db(process.env.STAGE === 'prod' ? 'main' : 'test').collection(collection));
 	} else {
-		return connect().then((client) => client.db('resume').collection(collection));
+		return connect().then((client) => client.db(process.env.STAGE === 'prod' ? 'main' : 'test').collection(collection));
 	}
 }
 
