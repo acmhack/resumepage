@@ -12,45 +12,45 @@ const projectsArray: IProjectCard[] = [
 	{
 		name: 'Project1',
 		members: [
-            {
-                name: 'test',
-                projectlink: 'test',
-                resumelink: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
-                grad: 'May 2023',
-                category: 'overall',
-                projectName: 'test',
-                school: 'Missouri S&T',
-                featured: true,
-            },
-            {
-                name: 'anotherTest',
-                projectlink: 'cool',
-                resumelink: 'muypoggers',
-                grad: 'May 2024',
-                category: 'beginner',
-                projectName: 'test',
-                school: 'Missouri S&T',
-                featured: false,
-            },
+			{
+				name: 'test',
+				projectlink: 'test',
+				resumelink: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
+				grad: 'May 2023',
+				category: 'overall',
+				projectName: 'test',
+				school: 'Missouri S&T',
+				featured: true
+			},
+			{
+				name: 'anotherTest',
+				projectlink: 'cool',
+				resumelink: 'muypoggers',
+				grad: 'May 2024',
+				category: 'beginner',
+				projectName: 'test',
+				school: 'Missouri S&T',
+				featured: false
+			}
 		],
 		projectlink: 'test',
 		category: 'overall',
-		featured: true,
+		featured: true
 	},
 	{
 		name: 'Project2',
 		members: [],
 		projectlink: 'cool',
 		category: 'beginner',
-		featured: false,
+		featured: false
 	},
 	{
 		name: 'Project3',
 		members: [],
 		projectlink: 'coolio',
 		category: 'solo',
-		featured: true,
-	},
+		featured: true
+	}
 ];
 
 const usersArray: IUserCard[] = [
@@ -62,7 +62,7 @@ const usersArray: IUserCard[] = [
 		category: 'overall',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: true,
+		featured: true
 	},
 	{
 		name: 'anotherTest',
@@ -72,7 +72,7 @@ const usersArray: IUserCard[] = [
 		category: 'beginner',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: false,
+		featured: false
 	},
 	{
 		name: 'zaTest',
@@ -82,7 +82,7 @@ const usersArray: IUserCard[] = [
 		category: 'solo',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: true,
+		featured: true
 	},
 	{
 		name: 'baby',
@@ -92,7 +92,7 @@ const usersArray: IUserCard[] = [
 		category: 'overall',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: false,
+		featured: false
 	},
 	{
 		name: 'coolbaby',
@@ -102,7 +102,7 @@ const usersArray: IUserCard[] = [
 		category: 'beginner',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: true,
+		featured: true
 	},
 	{
 		name: 'John Smith Jr.',
@@ -112,8 +112,8 @@ const usersArray: IUserCard[] = [
 		category: 'beginner',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: false,
-	},
+		featured: false
+	}
 ];
 
 const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
@@ -137,7 +137,20 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 				userCards = userCards.sort((a, b) => b.name.localeCompare(a.name));
 				break;
 			case 'feat':
-				userCards = userCards.filter((card) => card.featured);
+				userCards = userCards.sort((a, b) => {
+					if (a.featured && b.featured) {
+						if (a.name < b.name) {
+							return -1;
+						}
+						if (a.name > b.name) {
+							return 1;
+						}
+						return 0;
+					} else if (b.featured) {
+						return 1;
+					}
+					return -1;
+				});
 				break;
 		}
 	} else if (searchFilter.view === 'projects') {
@@ -156,7 +169,20 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 				projectCards = projectCards.sort((a, b) => b.name.localeCompare(a.name));
 				break;
 			case 'feat':
-				projectCards = projectCards.filter((card) => card.featured);
+				projectCards = projectCards.sort((a, b) => {
+					if (a.featured && b.featured) {
+						if (a.name < b.name) {
+							return -1;
+						}
+						if (a.name > b.name) {
+							return 1;
+						}
+						return 0;
+					} else if (b.featured) {
+						return 1;
+					}
+					return -1;
+				});
 				break;
 		}
 	}

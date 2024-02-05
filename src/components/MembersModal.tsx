@@ -13,18 +13,19 @@ const style = {
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	background: 'rgba(0, 0, 0, .2)',
+	background: 'rgba(255, 255, 255, .15)',
 	backdropFilter: 'blur(2em)',
 	boxShadow: 24,
 	p: 4,
-    my: 4,
-    overflowY: 'auto',
-    width: '80%',
-    maxHeight: '100%',
-    // minWidth: '25em',
+	overflowY: 'auto',
+	width: '80%',
+	maxHeight: '100%',
+	// minWidth: '25em',
 	display: 'flex',
 	flexDirection: 'column',
-	gap: '.5em',
+    alignItems: 'center',
+	gap: '1em',
+	borderRadius: '2em'
 };
 
 interface IProps {
@@ -41,12 +42,12 @@ const MembersModal = ({ open, setOpen, members }: IProps) => {
 
 	return (
 		<div>
-			<Modal open={open} onClose={() => setOpen(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+			<Modal open={open} onClose={() => setOpen(false)} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
 				<Box sx={style}>
-					<Typography variant="h6" component="h2" color="white" fontWeight="bold">
+					<Typography variant='h5' component='h2' color='white' fontWeight='bold'>
 						Members
 					</Typography>
-					<div style={{ display: 'flex', gap: '1em', width: '100%', flexWrap: 'wrap'}}>
+					<div style={{ display: 'flex', gap: '1em', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
 						{members.map((card, i) => (
 							<UserCard
 								key={i}
