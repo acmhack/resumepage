@@ -1,16 +1,29 @@
 import styles from '../styles/components/Sidebar.module.css';
 import * as React from 'react';
 import { FormControl, FormControlLabel, FormGroup, InputLabel, Select, MenuItem, Checkbox, TextField, Button, Radio, RadioGroup } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import { styled } from '@mui/material/styles';
+import { ButtonProps } from '@mui/material/Button';
+import { purple, pink } from '@mui/material/colors';
+import { CardSearchContext } from '../lib/Contexts';
 
 interface IProps {
 	view: string;
-	gradyear: string[];
-	category: string[];
-	setGradYear: React.Dispatch<React.SetStateAction<string[]>>;
-	setCategory: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const Sidebar = ({ view, gradyear, category, setGradYear, setCategory }: IProps) => {
+const ClearButton = styled(Button)<ButtonProps>(({ theme }) => ({
+	color: pink[200],
+	borderColor: pink[200],
+	width: 'fit-content',
+	'&:hover': {
+		borderColor: pink[300],
+		backgroundColor: 'transparent',
+		color: pink[300],
+	},
+}));
+
+const Sidebar = ({ view }: IProps) => {
+	const { gradyear, category, setGradYear, setCategory } = React.useContext(CardSearchContext);
 	const handleGradChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const index = gradyear.indexOf(e.target.value);
 		if (index === -1) {
@@ -29,6 +42,11 @@ const Sidebar = ({ view, gradyear, category, setGradYear, setCategory }: IProps)
 		}
 	};
 
+	// const clearFilters = () => {
+	// 	setGradYear([]);
+    //     setCategory([]);
+	// };
+
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.logoContainer}>
@@ -38,7 +56,12 @@ const Sidebar = ({ view, gradyear, category, setGradYear, setCategory }: IProps)
 				</p>
 			</div>
 			<div className={styles.line}></div>
-			{/* TODO: Clear filters button */}
+			{/* <div style={{ width: '100%', display: 'flex' }}>
+				<p>Filter By</p>
+				<ClearButton variant="outlined" endIcon={<ClearIcon />} onClick={clearFilters}>
+					Clear filters
+				</ClearButton>
+			</div> */}
 			{view === 'people' && (
 				<>
 					<div className={styles.filter}>

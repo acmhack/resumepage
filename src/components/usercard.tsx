@@ -28,12 +28,12 @@ const UserCard = ({ name, resumelink, projectlink, grad, category, featured, pro
 					</div>
 				</div>
 				<div className={styles.buttonContainer}>
-					<a href={resumelink} className={styles.button}>
-						RESUME
+					<a href={resumelink} target="_blank" className={styles.button}>
+						Resume
 					</a>
 					<div className={styles.divider}></div>
-					<a href={projectlink} className={styles.button}>
-						PROJECT
+					<a href={projectlink} target="_blank" className={styles.button}>
+						Project
 					</a>
 				</div>
 			</CardContent>

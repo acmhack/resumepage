@@ -1,43 +1,56 @@
 import type { NextPage } from 'next';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import UserCard from '../components/usercard';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
 import { IUserCard } from '../interfaces/UserCard';
 import { CardSearchContext } from '../lib/Contexts';
 import styles from '../styles/Home.module.css';
+import MembersModal from '../components/MembersModal';
 
 const projectsArray: IProjectCard[] = [
 	{
 		name: 'Project1',
 		members: [
-			{
-				name: 'bob',
-				resume: 'b'
-			},
-			{
-				name: 'bob',
-				resume: 'b'
-			}
+            {
+                name: 'test',
+                projectlink: 'test',
+                resumelink: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
+                grad: 'May 2023',
+                category: 'overall',
+                projectName: 'test',
+                school: 'Missouri S&T',
+                featured: true,
+            },
+            {
+                name: 'anotherTest',
+                projectlink: 'cool',
+                resumelink: 'muypoggers',
+                grad: 'May 2024',
+                category: 'beginner',
+                projectName: 'test',
+                school: 'Missouri S&T',
+                featured: false,
+            },
 		],
 		projectlink: 'test',
 		category: 'overall',
-		featured: true
+		featured: true,
 	},
 	{
 		name: 'Project2',
 		members: [],
 		projectlink: 'cool',
 		category: 'beginner',
-		featured: false
+		featured: false,
 	},
 	{
 		name: 'Project3',
 		members: [],
 		projectlink: 'coolio',
 		category: 'solo',
-		featured: true
-	}
+		featured: true,
+	},
 ];
 
 const usersArray: IUserCard[] = [
@@ -49,7 +62,7 @@ const usersArray: IUserCard[] = [
 		category: 'overall',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: true
+		featured: true,
 	},
 	{
 		name: 'anotherTest',
@@ -59,7 +72,7 @@ const usersArray: IUserCard[] = [
 		category: 'beginner',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: false
+		featured: false,
 	},
 	{
 		name: 'zaTest',
@@ -69,7 +82,7 @@ const usersArray: IUserCard[] = [
 		category: 'solo',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: true
+		featured: true,
 	},
 	{
 		name: 'baby',
@@ -79,7 +92,7 @@ const usersArray: IUserCard[] = [
 		category: 'overall',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: false
+		featured: false,
 	},
 	{
 		name: 'coolbaby',
@@ -89,7 +102,7 @@ const usersArray: IUserCard[] = [
 		category: 'beginner',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: true
+		featured: true,
 	},
 	{
 		name: 'John Smith Jr.',
@@ -99,12 +112,11 @@ const usersArray: IUserCard[] = [
 		category: 'beginner',
 		projectName: 'test',
 		school: 'Missouri S&T',
-		featured: false
-	}
+		featured: false,
+	},
 ];
 
 const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], searchFilter: any) => {
-	//TODO add type to searchFilter
 	if (searchFilter.view === 'people') {
 		const search = searchFilter.search.toLowerCase();
 		const gradyear = searchFilter.gradyear.toString();
@@ -162,7 +174,8 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 						grad={card.grad}
 						category={card.category}
 						projectName={card.projectName}
-						school={card.school}></UserCard>
+						school={card.school}
+					></UserCard>
 				))}
 			{searchFilter.view === 'projects' &&
 				projectCards.map((card, i) => (
@@ -172,7 +185,8 @@ const displayCards = (userCards: IUserCard[], projectCards: IProjectCard[], sear
 						members={card.members}
 						projectlink={card.projectlink}
 						featured={card.featured}
-						category={card.category}></ProjectCard>
+						category={card.category}
+					></ProjectCard>
 				))}
 		</>
 	);
@@ -189,4 +203,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-

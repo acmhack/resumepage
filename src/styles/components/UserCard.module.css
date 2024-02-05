@@ -19,7 +19,8 @@
     /* gap: .5em; */
     justify-content: space-evenly;
     height: 100%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    overflow-y: auto;
 }
 
 .buttonContainer {
@@ -32,11 +33,12 @@
 .button {
     padding: 1.2em;
     font-size: .9em;
-    font-weight: bold;
+    font-weight: medium;
     width: 100%;
     text-align: center;
     background-color: #520dad;
     font-family: Ubuntu;
+    cursor: pointer;
 }
 
 .button:hover {
@@ -51,7 +53,7 @@
 }
 
 .title {
-    font-size: 1.1em;
+    font-size: 1.05em;
     font-weight: bold;
     color: #a46fe9;
     font-family: Ubuntu;
