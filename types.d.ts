@@ -11,18 +11,13 @@ interface User {
 	graduationYear: string;
 	shirtSize: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';
 	dietRestrictions: string[];
-	hackathonCount: string;
 	resume: string | null;
-	linkedin?: string;
-	github?: string;
-	otherSites: string[];
-	attendingPrehacks: boolean;
-	lookingForTeam: boolean;
+	// attendingPrehacks: boolean;
 	codeOfConductAgreement: boolean;
 	dataAgreement: boolean;
 	mlhAgreement: boolean;
 
-	category: string | null; // TODO: transfer these to registration as well
+	category: string | null;
 	featured: boolean;
 	projectLink: string | null;
 	projectName: string | null;
