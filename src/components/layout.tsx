@@ -29,14 +29,14 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
 			<Head>
 				<title>PickHacks Resumes</title>
 			</Head>
-			<CardSearchContext.Provider value={{ sort: sort, search: search, view: view, gradyear: gradyear, category: category }}>
+			<CardSearchContext.Provider value={{ sort, search, view, gradyear, category, setGradYear, setCategory}}>
 				<div className={styles.container}>
 					<div className={styles.circle} style={{ right: 0, bottom: '-5%' }}></div>
 					<div className={styles.circle} style={{ top: '-10%', left: '-10%' }}></div>
 					<div className={styles.circle} style={{ left: '40%', top: '-30%' }}></div>
 					<div className={styles.circle} style={{ left: '5%', bottom: '-40%' }}></div>
 					<div className={styles.row}>
-						<Sidebar view={view} gradyear={gradyear} category={category} setGradYear={setGradYear} setCategory={setCategory} />
+						<Sidebar view={view} />
                         <div className={styles.column}>
                         <div className={styles.row}>
 							<Searchbar search={search} setSearch={setSearch} />

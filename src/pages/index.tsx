@@ -5,18 +5,31 @@ import UserCard from '../components/UserCard';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
 import { CardSearchContext } from '../lib/Contexts';
 import styles from '../styles/Home.module.css';
+import MembersModal from '../components/MembersModal';
 
 const projectsArray: IProjectCard[] = [
 	{
 		name: 'Project1',
 		members: [
 			{
-				name: 'bob',
-				resume: 'b'
+				name: 'test',
+				projectlink: 'test',
+				resumelink: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
+				grad: 'May 2023',
+				category: 'overall',
+				projectName: 'test',
+				school: 'Missouri S&T',
+				featured: true
 			},
 			{
-				name: 'bob',
-				resume: 'b'
+				name: 'anotherTest',
+				projectlink: 'cool',
+				resumelink: 'muypoggers',
+				grad: 'May 2024',
+				category: 'beginner',
+				projectName: 'test',
+				school: 'Missouri S&T',
+				featured: false
 			}
 		],
 		projectlink: 'test',
@@ -62,7 +75,20 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 				userCards = userCards.sort((a, b) => `${b.firstName} ${b.lastName}`.localeCompare(`${a.firstName} ${a.lastName}`));
 				break;
 			case 'feat':
-				userCards = userCards.filter((card) => card.featured);
+				userCards = userCards.sort((a, b) => {
+					if (a.featured && b.featured) {
+						if (a.name < b.name) {
+							return -1;
+						}
+						if (a.name > b.name) {
+							return 1;
+						}
+						return 0;
+					} else if (b.featured) {
+						return 1;
+					}
+					return -1;
+				});
 				break;
 		}
 		console.log(userCards);
@@ -82,14 +108,40 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 				projectCards = projectCards.sort((a, b) => b.name.localeCompare(a.name));
 				break;
 			case 'feat':
-				projectCards = projectCards.filter((card) => card.featured);
+				projectCards = projectCards.sort((a, b) => {
+					if (a.featured && b.featured) {
+						if (a.name < b.name) {
+							return -1;
+						}
+						if (a.name > b.name) {
+							return 1;
+						}
+						return 0;
+					} else if (b.featured) {
+						return 1;
+					}
+					return -1;
+				});
 				break;
 		}
 	}
 
 	return (
 		<>
-			{searchFilter.view === 'people' && userCards.map((card, i) => <UserCard key={i} {...card}></UserCard>)}
+			{searchFilter.view === 'people' &&
+				userCards.map((card, i) => (
+					<UserCard
+						key={i}
+						name={card.name}
+						projectlink={card.projectlink}
+						resumelink={card.resumelink}
+						featured={card.featured}
+						grad={card.grad}
+						category={card.category}
+						projectName={card.projectName}
+						school={card.school}
+					></UserCard>
+				))}
 			{searchFilter.view === 'projects' &&
 				projectCards.map((card, i) => (
 					<ProjectCard
@@ -98,7 +150,8 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 						members={card.members}
 						projectlink={card.projectlink}
 						featured={card.featured}
-						category={card.category}></ProjectCard>
+						category={card.category}
+					></ProjectCard>
 				))}
 		</>
 	);
@@ -122,4 +175,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
