@@ -31,7 +31,7 @@ const ProjectCard = ({ name, members, projectlink, category, featured }: IProjec
 						Members
 					</div>
 					<div className={styles.divider}></div>
-					<a href={projectlink} target="_blank" className={styles.button}>
+					<a href={projectlink} target="_blank" rel="noreferrer noopener" className={styles.button}>
 						Project
 					</a>
 				</CardActions>
