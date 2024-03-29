@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 			try {
 				const collection = await getCollection<User>('applications');
 
-				const data = await collection.find().toArray();
+				const data = await collection.find({ resume: { $ne: null } }).toArray();
 
 				res.status(200).json(data);
 			} catch (error) {
@@ -20,4 +20,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 			res.status(405).send('Must use GET');
 	}
 }
-

@@ -7,6 +7,7 @@ import { useState } from 'react';
 import UserCard from './usercard';
 import { IMember } from '../interfaces/Member';
 import { IUserCard } from '../interfaces/UserCard';
+// import { IUserCard } from '../interfaces/usercard';
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -23,9 +24,9 @@ const style = {
 	// minWidth: '25em',
 	display: 'flex',
 	flexDirection: 'column',
-    alignItems: 'center',
+	alignItems: 'center',
 	gap: '1em',
-	borderRadius: '2em'
+	borderRadius: '2em',
 };
 
 interface IProps {
@@ -42,23 +43,25 @@ const MembersModal = ({ open, setOpen, members }: IProps) => {
 
 	return (
 		<div>
-			<Modal open={open} onClose={() => setOpen(false)} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+			<Modal open={open} onClose={() => setOpen(false)} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
 				<Box sx={style}>
-					<Typography variant='h5' component='h2' color='white' fontWeight='bold'>
+					<Typography variant="h5" component="h2" color="white" fontWeight="bold">
 						Members
 					</Typography>
 					<div style={{ display: 'flex', gap: '1em', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
 						{members.map((card, i) => (
 							<UserCard
 								key={i}
-								name={card.name}
-								projectlink={card.projectlink}
-								resumelink={card.resumelink}
+								firstName={card.firstName}
+								lastName={card.lastName}
+								projectLink={card.projectLink}
+								resume={card.resume}
 								featured={card.featured}
-								grad={card.grad}
+								graduationYear={card.graduationYear}
+								graduationMonth={card.graduationMonth}
+                                school={card.school}
 								category={card.category}
 								projectName={card.projectName}
-								school={card.school}
 							></UserCard>
 						))}
 					</div>

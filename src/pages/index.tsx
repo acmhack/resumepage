@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { useContext, useEffect, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
-import UserCard from '../components/UserCard';
+import UserCard from '../components/usercard';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
 import { CardSearchContext } from '../lib/Contexts';
 import styles from '../styles/Home.module.css';
@@ -12,44 +12,48 @@ const projectsArray: IProjectCard[] = [
 		name: 'Project1',
 		members: [
 			{
-				name: 'test',
-				projectlink: 'test',
-				resumelink: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
-				grad: 'May 2023',
+				firstName: 'test',
+				lastName: 'testttt',
+				projectLink: 'test',
+				resume: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
+				graduationYear: '2023',
+				graduationMonth: 'May',
+				school: 'Missouri S&T',
 				category: 'overall',
 				projectName: 'test',
-				school: 'Missouri S&T',
-				featured: true
+				featured: true,
 			},
 			{
-				name: 'anotherTest',
-				projectlink: 'cool',
-				resumelink: 'muypoggers',
-				grad: 'May 2024',
-				category: 'beginner',
-				projectName: 'test',
-				school: 'Missouri S&T',
-				featured: false
-			}
+				firstName: 'anotherTest',
+				lastName: 'testt2131',
+				projectLink: 'test',
+				resume: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
+				graduationYear: '2023',
+				graduationMonth: 'December',
+				school: 'Mizzou',
+				category: 'overall',
+				projectName: 'test2',
+				featured: true,
+			},
 		],
 		projectlink: 'test',
 		category: 'overall',
-		featured: true
+		featured: true,
 	},
 	{
 		name: 'Project2',
 		members: [],
 		projectlink: 'cool',
 		category: 'beginner',
-		featured: false
+		featured: false,
 	},
 	{
 		name: 'Project3',
 		members: [],
 		projectlink: 'coolio',
 		category: 'solo',
-		featured: true
-	}
+		featured: true,
+	},
 ];
 
 const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFilter: any) => {
@@ -77,10 +81,10 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 			case 'feat':
 				userCards = userCards.sort((a, b) => {
 					if (a.featured && b.featured) {
-						if (a.name < b.name) {
+						if (a.firstName < b.firstName) {
 							return -1;
 						}
-						if (a.name > b.name) {
+						if (a.firstName > b.firstName) {
 							return 1;
 						}
 						return 0;
@@ -132,14 +136,16 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 				userCards.map((card, i) => (
 					<UserCard
 						key={i}
-						name={card.name}
-						projectlink={card.projectlink}
-						resumelink={card.resumelink}
+						firstName={card.firstName}
+						lastName={card.lastName}
+						projectLink={card.projectLink}
+						resume={card.resume}
 						featured={card.featured}
-						grad={card.grad}
+						graduationYear={card.graduationYear}
+						graduationMonth={card.graduationMonth}
+						school={card.school}
 						category={card.category}
 						projectName={card.projectName}
-						school={card.school}
 					></UserCard>
 				))}
 			{searchFilter.view === 'projects' &&
