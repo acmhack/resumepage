@@ -7,57 +7,7 @@ import { CardSearchContext } from '../lib/Contexts';
 import styles from '../styles/Home.module.css';
 import MembersModal from '../components/MembersModal';
 
-const projectsArray: IProjectCard[] = [
-	{
-		name: 'Project1',
-		members: [
-			{
-				firstName: 'test',
-				lastName: 'testttt',
-				projectLink: 'test',
-				resume: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
-				graduationYear: '2023',
-				graduationMonth: 'May',
-				school: 'Missouri S&T',
-				category: 'overall',
-				projectName: 'test',
-				featured: true,
-			},
-			{
-				firstName: 'anotherTest',
-				lastName: 'testt2131',
-				projectLink: 'test',
-				resume: 'https://cdn.filestackcontent.com/C2URI9BTSEuNqPznAk7I',
-				graduationYear: '2023',
-				graduationMonth: 'December',
-				school: 'Mizzou',
-				category: 'overall',
-				projectName: 'test2',
-				featured: true,
-			},
-		],
-		projectlink: 'test',
-		category: 'overall',
-		featured: true,
-	},
-	{
-		name: 'Project2',
-		members: [],
-		projectlink: 'cool',
-		category: 'beginner',
-		featured: false,
-	},
-	{
-		name: 'Project3',
-		members: [],
-		projectlink: 'coolio',
-		category: 'solo',
-		featured: true,
-	},
-];
-
 const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFilter: any) => {
-	console.log(userCards);
 	//TODO add type to searchFilter
 	if (searchFilter.view === 'people') {
 		const search = searchFilter.search.toLowerCase();
@@ -100,24 +50,24 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 		const search = searchFilter.search.toLowerCase();
 		const category = searchFilter.category;
 		const sort = searchFilter.sort;
-		projectCards = projectCards.filter((card) => card.name.toLowerCase().includes(search));
+		projectCards = projectCards.filter((card) => card.projectName.toLowerCase().includes(search));
 		if (category.length !== 0) {
 			projectCards = projectCards.filter((card) => category.includes(card.category));
 		}
 		switch (sort) {
 			case 'asc':
-				projectCards = projectCards.sort((a, b) => a.name.localeCompare(b.name));
+				projectCards = projectCards.sort((a, b) => a.projectName.localeCompare(b.projectName));
 				break;
 			case 'desc':
-				projectCards = projectCards.sort((a, b) => b.name.localeCompare(a.name));
+				projectCards = projectCards.sort((a, b) => b.projectName.localeCompare(a.projectName));
 				break;
 			case 'feat':
 				projectCards = projectCards.sort((a, b) => {
 					if (a.featured && b.featured) {
-						if (a.name < b.name) {
+						if (a.projectName < b.projectName) {
 							return -1;
 						}
-						if (a.name > b.name) {
+						if (a.projectName > b.projectName) {
 							return 1;
 						}
 						return 0;
@@ -152,9 +102,9 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 				projectCards.map((card, i) => (
 					<ProjectCard
 						key={i}
-						name={card.name}
+						projectName={card.projectName}
 						members={card.members}
-						projectlink={card.projectlink}
+						projectLink={card.projectLink}
 						featured={card.featured}
 						category={card.category}
 					></ProjectCard>
@@ -165,17 +115,21 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 
 const Home: NextPage = () => {
 	const [users, setUsers] = useState([]);
+	const [projects, setProjects] = useState([]);
 	const searchFilter = useContext(CardSearchContext);
 
 	useEffect(() => {
 		fetch('/api/resumes')
 			.then((res) => res.json())
 			.then((data) => setUsers(data));
+		fetch('/api/projects')
+			.then((res) => res.json())
+			.then((data) => setProjects(data));
 	}, []);
 
 	return (
 		<div style={{ height: '100%' }}>
-			<div className={styles.cardContainer}>{displayCards(users, projectsArray, searchFilter)}</div>
+			<div className={styles.cardContainer}>{displayCards(users, projects, searchFilter)}</div>
 		</div>
 	);
 };

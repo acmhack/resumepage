@@ -44,7 +44,7 @@ const Sidebar = ({ view }: IProps) => {
 
 	// const clearFilters = () => {
 	// 	setGradYear([]);
-    //     setCategory([]);
+	//     setCategory([]);
 	// };
 
 	return (
@@ -67,10 +67,22 @@ const Sidebar = ({ view }: IProps) => {
 					<div className={styles.filter}>
 						<p className={styles.title}>Grad Year</p>
 						<FormGroup id="gradyear">
-							<FormControlLabel control={<Checkbox value="2023" onChange={(e) => handleGradChange(e)} />} label="2023" />
-							<FormControlLabel control={<Checkbox value="2024" onChange={(e) => handleGradChange(e)} />} label="2024" />
-							<FormControlLabel control={<Checkbox value="2025" onChange={(e) => handleGradChange(e)} />} label="2025" />
-							<FormControlLabel control={<Checkbox value="2026" onChange={(e) => handleGradChange(e)} />} label="2026" />
+							<FormControlLabel
+								control={<Checkbox value={new Date().getFullYear().toString()} onChange={(e) => handleGradChange(e)} />}
+								label={new Date().getFullYear().toString()}
+							/>
+							<FormControlLabel
+								control={<Checkbox value={(new Date().getFullYear() + 1).toString()} onChange={(e) => handleGradChange(e)} />}
+								label={(new Date().getFullYear() + 1).toString()}
+							/>
+							<FormControlLabel
+								control={<Checkbox value={(new Date().getFullYear() + 2).toString()} onChange={(e) => handleGradChange(e)} />}
+								label={(new Date().getFullYear() + 2).toString()}
+							/>
+							<FormControlLabel
+								control={<Checkbox value={(new Date().getFullYear() + 3).toString()} onChange={(e) => handleGradChange(e)} />}
+								label={(new Date().getFullYear() + 3).toString()}
+							/>
 						</FormGroup>
 					</div>
 					<div className={styles.line}></div>
@@ -81,6 +93,9 @@ const Sidebar = ({ view }: IProps) => {
 				<FormGroup id="category">
 					<FormControlLabel control={<Checkbox value="overall" onChange={(e) => handleCategoryChange(e)} />} label="Overall" />
 					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Beginner" />
+					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Hardware" />
+					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Women's" />
+					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Community Vote" />
 					<FormControlLabel control={<Checkbox value="solo" onChange={(e) => handleCategoryChange(e)} />} label="Solo" />
 				</FormGroup>
 			</div>

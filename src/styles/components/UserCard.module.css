@@ -16,10 +16,10 @@
 	padding: 0.5em 1.5em;
 	display: flex;
 	flex-direction: column;
-    justify-content: space-evenly;
-    height: 100%;
-    overflow-y: auto;
-    font-size: .95em;
+	justify-content: space-evenly;
+	height: 100%;
+	overflow-y: auto;
+	font-size: 0.95em;
 }
 
 .buttonContainer {
@@ -30,18 +30,19 @@
 }
 
 .button {
-    padding: 1.2em;
-    font-size: .9em;
-    font-weight: 600;
-    width: 100%;
-    text-align: center;
-    background-color: #520dad;
-    font-family: Ubuntu;
-    cursor: pointer;
+	padding: 1.2em;
+	font-size: 0.9em;
+	font-weight: 600;
+	width: 100%;
+	text-align: center;
+	background-color: #520dad;
+	font-family: Ubuntu;
+	cursor: pointer;
 }
 
 .button.disabled {
-	cursor: not-allowed;
+	pointer-events: none;
+	background-color: #400988;
 }
 
 .button:not(.disabled):hover {
@@ -60,4 +61,5 @@
 	font-weight: bold;
 	color: #a46fe9;
 	font-family: Ubuntu;
+	margin-bottom: 0.2em;
 }

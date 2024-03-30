@@ -3,7 +3,18 @@ import React, { useMemo } from 'react';
 import styles from '../styles/components/UserCard.module.css';
 import { IUserCard } from '../interfaces/UserCard';
 
-const UserCard: React.FC<IUserCard> = ({ firstName, lastName, resume, graduationMonth, graduationYear, school, category, featured, projectLink, projectName }) => {
+const UserCard: React.FC<IUserCard> = ({
+	firstName,
+	lastName,
+	resume,
+	graduationMonth,
+	graduationYear,
+	school,
+	category,
+	featured,
+	projectLink,
+	projectName,
+}) => {
 	const resumeURL = useMemo(() => {
 		let url = resume;
 
@@ -31,10 +42,10 @@ const UserCard: React.FC<IUserCard> = ({ firstName, lastName, resume, graduation
 						<p className={styles.title}>Project</p>
 						<p>{projectName}</p>
 					</div>
-					<div>
+					{/* <div>
 						<p className={styles.title}>Categories</p>
 						<p>{category}</p>
-					</div>
+					</div> */}
 					<div>
 						<p className={styles.title}>School</p>
 						<p>{school}</p>
@@ -60,7 +71,7 @@ const UserCard: React.FC<IUserCard> = ({ firstName, lastName, resume, graduation
 						target="_blank"
 						rel="noreferrer noopener"
 						href={projectLink ?? '#'}
-						className={styles.button + (projectLink === null ? ' ' + styles.disabled : '')}
+						className={styles.button + (projectLink === null || projectLink === undefined ? ' ' + styles.disabled : '')}
 					>
 						PROJECT
 					</a>
