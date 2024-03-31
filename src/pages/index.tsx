@@ -5,7 +5,6 @@ import UserCard from '../components/usercard';
 import { IProjectCard } from '../interfaces/ProjectCardProps';
 import { CardSearchContext } from '../lib/Contexts';
 import styles from '../styles/Home.module.css';
-import MembersModal from '../components/MembersModal';
 
 const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFilter: any) => {
 	//TODO add type to searchFilter

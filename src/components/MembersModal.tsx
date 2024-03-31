@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import UserCard from './usercard';
-import { IMember } from '../interfaces/Member';
 import { IUserCard } from '../interfaces/IUserCard';
 // import { IUserCard } from '../interfaces/usercard';
 
