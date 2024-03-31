@@ -5,7 +5,7 @@ export interface IUserCard {
 	graduationYear: string;
     school: string;
 	resume: string | null;
-	category: string | null;
+	category: string[] | null;
 	featured: boolean;
 	projectLink: string | null;
 	projectName: string | null;
