@@ -49,21 +49,22 @@ const MembersModal = ({ open, setOpen, members }: IProps) => {
 						Members
 					</Typography>
 					<div style={{ display: 'flex', gap: '1em', width: '100%', flexWrap: 'wrap', justifyContent: 'center' }}>
-						{members.map((card, i) => (
-							<UserCard
-								key={i}
-								firstName={card.firstName}
-								lastName={card.lastName}
-								projectLink={card.projectLink}
-								resume={card.resume}
-								featured={card.featured}
-								graduationYear={card.graduationYear}
-								graduationMonth={card.graduationMonth}
-                                school={card.school}
-								category={card.category}
-								projectName={card.projectName}
-							></UserCard>
-						))}
+						{members &&
+							members.map((card, i) => (
+								<UserCard
+									key={i}
+									firstName={card.firstName}
+									lastName={card.lastName}
+									projectLink={card.projectLink}
+									resume={card.resume}
+									featured={card.featured}
+									graduationYear={card.graduationYear}
+									graduationMonth={card.graduationMonth}
+									school={card.school}
+									category={card.category}
+									projectName={card.projectName}
+								></UserCard>
+							))}
 					</div>
 				</Box>
 			</Modal>

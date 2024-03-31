@@ -11,16 +11,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 				let projectData = await collection
 					.find({ projectLink: { $ne: null }, projectName: { $ne: null } }, { projection: { projectName: 1, projectLink: 1, _id: 0 } })
 					.toArray();
-                for (let i = 0; i < projectData.length; i++) {
-                    let members = await collection
-                    .find({ projectLink: projectData[i].projectLink, projectName: projectData[i].projectName })
-                    .toArray()
-                    .then((members) => {
-                        Object.assign(projectData[i], { members });
-                    });
-                }
-			
-				console.log(projectData);
+				for (let i = 0; i < projectData.length; i++) {
+					await collection
+						.find({ projectLink: projectData[i].projectLink, projectName: projectData[i].projectName })
+						.toArray()
+						.then((members) => {
+							Object.assign(projectData[i], { members });
+							Object.assign(projectData[i], { featured: members[0].featured });
+							Object.assign(projectData[i], { category: members[0].category });
+						});
+				}
 
 				res.status(200).json(projectData);
 			} catch (error) {

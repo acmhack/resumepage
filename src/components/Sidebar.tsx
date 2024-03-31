@@ -91,12 +91,12 @@ const Sidebar = ({ view }: IProps) => {
 			<div className={styles.filter}>
 				<p className={styles.title}>Categories</p>
 				<FormGroup id="category">
-					<FormControlLabel control={<Checkbox value="overall" onChange={(e) => handleCategoryChange(e)} />} label="Overall" />
-					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Beginner" />
-					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Hardware" />
-					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Women's" />
-					<FormControlLabel control={<Checkbox value="beginner" onChange={(e) => handleCategoryChange(e)} />} label="Community Vote" />
-					<FormControlLabel control={<Checkbox value="solo" onChange={(e) => handleCategoryChange(e)} />} label="Solo" />
+					<FormControlLabel control={<Checkbox value="Overall" onChange={(e) => handleCategoryChange(e)} />} label="Overall" />
+					<FormControlLabel control={<Checkbox value="Beginner" onChange={(e) => handleCategoryChange(e)} />} label="Beginner" />
+					<FormControlLabel control={<Checkbox value="Hardware" onChange={(e) => handleCategoryChange(e)} />} label="Hardware" />
+					<FormControlLabel control={<Checkbox value="Women's" onChange={(e) => handleCategoryChange(e)} />} label="Women's" />
+					<FormControlLabel control={<Checkbox value="Community Vote" onChange={(e) => handleCategoryChange(e)} />} label="Community Vote" />
+					<FormControlLabel control={<Checkbox value="Solo" onChange={(e) => handleCategoryChange(e)} />} label="Solo" />
 				</FormGroup>
 			</div>
 			<div className={styles.line}></div>

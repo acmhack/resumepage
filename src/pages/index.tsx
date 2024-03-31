@@ -19,7 +19,15 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 			userCards = userCards.filter((card) => card.graduationYear === gradyear);
 		}
 		if (category.length !== 0) {
-			userCards = userCards.filter((card) => category.includes(card.category));
+			userCards = userCards.filter((card) => {
+				if (!card.category) return false;
+				for (let i = 0; i < card.category.length; i++) {
+					if (category.includes(card.category[i])) {
+						return true;
+					}
+				}
+				return false;
+			});
 		}
 		switch (sort) {
 			case 'asc':
@@ -45,14 +53,21 @@ const displayCards = (userCards: User[], projectCards: IProjectCard[], searchFil
 				});
 				break;
 		}
-		console.log(userCards);
 	} else if (searchFilter.view === 'projects') {
 		const search = searchFilter.search.toLowerCase();
 		const category = searchFilter.category;
 		const sort = searchFilter.sort;
 		projectCards = projectCards.filter((card) => card.projectName.toLowerCase().includes(search));
 		if (category.length !== 0) {
-			projectCards = projectCards.filter((card) => category.includes(card.category));
+            projectCards = projectCards.filter((card) => {
+				if (!card.category) return false;
+				for (let i = 0; i < card.category.length; i++) {
+					if (category.includes(card.category[i])) {
+						return true;
+					}
+				}
+				return false;
+			});
 		}
 		switch (sort) {
 			case 'asc':

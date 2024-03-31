@@ -16,25 +16,28 @@ const ProjectCard = ({ projectName, members, projectLink, category, featured }: 
 					display: 'flex',
 					flexDirection: 'column',
 					borderRadius: '1em',
-					backgroundColor: featured ? 'white' : '#1C1C1C',
+					backgroundColor: '#1C1C1C',
 				}}
 			>
 				<CardContent style={{ padding: 0 }}>
-					<h2 className={styles.name}>{projectName}</h2>
+					<h2 className={styles.name} style={{ color: featured ? '#efc649' : 'white' }}>
+						{projectName}
+					</h2>
 					<div className={styles.line}></div>
 					<div className={styles.contentContainer}>
 						<div>
 							<p className={styles.title}>Categories</p>
 							{category && category.map((cate) => <p key={cate}>{cate}</p>)}
-							{!category && <p>None</p>}
+							{!category && <p>N/A</p>}
 						</div>
 						<div>
 							<p className={styles.title}>Members</p>
-							{members.map((member) => (
-								<p key={`${member.firstName}-${member.lastName}`}>
-									{member.firstName} {member.lastName}
-								</p>
-							))}
+							{members &&
+								members.map((member) => (
+									<p key={`${member.firstName}-${member.lastName}`}>
+										{member.firstName} {member.lastName}
+									</p>
+								))}
 						</div>
 					</div>
 				</CardContent>

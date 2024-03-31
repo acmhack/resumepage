@@ -33,14 +33,14 @@ const UserCard: React.FC<IUserCard> = ({
 	return (
 		<Card style={{ width: 250, height: 350, backgroundColor: '#1C1C1C', borderRadius: '1em' }}>
 			<CardContent style={{ padding: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
-				<h2 className={styles.name}>
+				<h2 className={styles.name} style={{ color: featured ? '#efc649' : 'white' }}>
 					{firstName} {lastName}
 				</h2>
 				<div className={styles.line}></div>
 				<div className={styles.contentContainer}>
 					<div>
 						<p className={styles.title}>Project</p>
-						<p>{projectName}</p>
+						<p>{projectName ? projectName : 'N/A'}</p>
 					</div>
 					{/* <div>
 						<p className={styles.title}>Categories</p>

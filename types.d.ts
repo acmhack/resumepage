@@ -17,7 +17,7 @@ interface User {
 	dataAgreement: boolean;
 	mlhAgreement: boolean;
 
-	category: string | null;
+	category: string[] | null;
 	featured: boolean;
 	projectLink: string | null;
 	projectName: string | null;
