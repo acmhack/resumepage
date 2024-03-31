@@ -1,5 +1,5 @@
 import { IMember } from './Member';
-import { IUserCard } from './UserCard';
+import { IUserCard } from './IUserCard';
 
 export interface IProjectCard {
 	projectName: string;

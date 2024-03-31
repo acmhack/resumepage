@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@mui/material';
 import React, { useMemo } from 'react';
 import styles from '../styles/components/UserCard.module.css';
-import { IUserCard } from '../interfaces/UserCard';
+import { IUserCard } from '../interfaces/IUserCard';
 
 const UserCard: React.FC<IUserCard> = ({
 	firstName,
